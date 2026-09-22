@@ -6,12 +6,10 @@
     <title>Beauty Clinic por Karynna Deyse | Estética, Beleza e Bem-Estar</title>
     <meta name="description" content="A Beauty Clinic por Karynna Deyse reúne tratamentos voltados à beleza, estética e bem-estar em um ambiente acolhedor. Agende seu momento de autocuidado.">
     
-    <!-- Open Graph -->
     <meta property="og:title" content="Beauty Clinic por Karynna Deyse | Estética e Bem-Estar">
     <meta property="og:description" content="Um espaço pensado para proporcionar cuidado e experiência. Conheça nossos tratamentos de estética facial, corporal e Head Spa.">
     <meta property="og:type" content="website">
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
@@ -22,7 +20,6 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Tailwind Config & Custom Styles -->
     <script>
         tailwind.config = {
             theme: {
@@ -41,10 +38,6 @@
                     fontFamily: {
                         serif: ['"Cormorant Garamond"', 'serif'],
                         sans: ['"DM Sans"', 'sans-serif'],
-                    },
-                    spacing: {
-                        '18': '4.5rem',
-                        '22': '5.5rem',
                     },
                     animation: {
                         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
@@ -78,19 +71,18 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Reveal animations */
+        /* Animações de Scroll (Reveal) */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
             transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Subtle text underline for links */
+        /* Efeito de hover em links */
         .hover-underline {
             position: relative;
             display: inline-block;
@@ -112,16 +104,7 @@
             transform-origin: bottom left;
         }
 
-        /* Hide scrollbar for category tabs if they overflow */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        /* Image treatment for editorial feel */
+        /* Imagens com estilo editorial */
         .editorial-image {
             filter: contrast(1.05) saturate(0.95) brightness(0.95);
             transition: filter 0.5s ease;
@@ -130,7 +113,7 @@
             filter: contrast(1) saturate(1) brightness(1);
         }
 
-        /* Accordion Animations (CSS Grid Technique) */
+        /* Animação do Acordeão (Sanfona) */
         .accordion-content-wrapper {
             display: grid;
             grid-template-rows: 0fr;
@@ -143,23 +126,21 @@
             overflow: hidden;
             opacity: 0;
             transition: opacity 0.4s ease-in-out;
-            transition-delay: 0s;
         }
         .accordion-item.is-open .accordion-content {
             opacity: 1;
-            transition-delay: 0.2s; /* Atrasa o fade-in para a caixa abrir primeiro */
+            transition-delay: 0.2s;
         }
         .accordion-item.is-open .accordion-icon {
             transform: rotate(180deg);
         }
     </style>
 </head>
-<body class="font-sans selection:bg-brand-primary selection:text-white">
+<body class="font-sans selection:bg-brand-primary selection:text-white relative">
 
-    <!-- HEADER -->
     <header id="header" class="fixed w-full top-0 z-50 transition-all duration-300 bg-brand-bg/90 backdrop-blur-md border-b border-transparent">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
-            <!-- Logo / Nome -->
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between relative z-50">
+            <!-- Logo -->
             <a href="#" class="font-serif text-xl md:text-2xl font-medium tracking-wide text-brand-textMain hover:opacity-80 transition-opacity">
                 Beauty Clinic<span class="block text-[0.6rem] md:text-xs font-sans tracking-widest uppercase text-brand-textMuted mt-0.5">por Karynna Deyse</span>
             </a>
@@ -175,60 +156,49 @@
 
             <!-- CTA Button Desktop -->
             <div class="hidden lg:block">
-                <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="group relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium text-white transition-all duration-200 bg-brand-textMain rounded-full hover:bg-brand-primary overflow-hidden">
+                <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20agendar%20um%20horário." target="_blank" rel="noopener noreferrer" class="group relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium text-white transition-all duration-200 bg-brand-textMain rounded-full hover:bg-brand-primary overflow-hidden">
                     <span class="relative z-10 flex items-center gap-2">Agendar horário</span>
                 </a>
             </div>
 
             <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="lg:hidden p-2 -mr-2 text-brand-textMain focus:outline-none" aria-label="Abrir menu">
-                <i data-lucide="menu" class="w-6 h-6"></i>
+            <button id="mobileMenuBtn" class="lg:hidden p-2 -mr-2 text-brand-textMain focus:outline-none" aria-label="Abrir menu">
+                <i data-lucide="menu" id="menuIcon" class="w-7 h-7"></i>
             </button>
-        </div>
-
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="fixed inset-0 bg-brand-bg z-40 transform translate-x-full transition-transform duration-300 ease-in-out lg:hidden flex flex-col pt-24 px-6 pb-12">
-            <button id="close-menu-btn" class="absolute top-6 right-6 p-2 text-brand-textMain" aria-label="Fechar menu">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-            <nav class="flex flex-col gap-6 text-center mt-12">
-                <a href="#inicio" class="mobile-link text-2xl font-serif text-brand-textMain hover:text-brand-primary">Início</a>
-                <a href="#tratamentos" class="mobile-link text-2xl font-serif text-brand-textMain hover:text-brand-primary">Tratamentos</a>
-                <a href="#experiencia" class="mobile-link text-2xl font-serif text-brand-textMain hover:text-brand-primary">Experiência</a>
-                <a href="#depoimentos" class="mobile-link text-2xl font-serif text-brand-textMain hover:text-brand-primary">Depoimentos</a>
-                <a href="#contato" class="mobile-link text-2xl font-serif text-brand-textMain hover:text-brand-primary">Contato</a>
-            </nav>
-            <div class="mt-auto pt-10 flex flex-col gap-4">
-                <a href="https://wa.me/5511999999999" target="_blank" class="w-full py-4 bg-brand-textMain text-white text-center rounded-full text-sm font-medium tracking-wide hover:bg-brand-primary transition-colors">
-                    Agendar pelo WhatsApp
-                </a>
-                <div class="flex justify-center gap-4 text-brand-textMuted">
-                    <a href="https://www.instagram.com/beautyclinicporkarynnadeyse/" target="_blank" class="hover:text-brand-primary"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                </div>
-            </div>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
+    <!-- Mobile Menu Overlay (CORREÇÃO APLICADA AQUI) -->
+    <div id="mobileMenu" class="fixed inset-0 bg-brand-bg z-40 hidden flex-col items-center justify-center pt-16 px-6 opacity-0 transition-opacity duration-300">
+        <nav class="flex flex-col gap-8 text-center w-full">
+            <a href="#inicio" class="mobile-link text-3xl font-serif text-brand-textMain hover:text-brand-primary">Início</a>
+            <a href="#tratamentos" class="mobile-link text-3xl font-serif text-brand-textMain hover:text-brand-primary">Tratamentos</a>
+            <a href="#experiencia" class="mobile-link text-3xl font-serif text-brand-textMain hover:text-brand-primary">Experiência</a>
+            <a href="#depoimentos" class="mobile-link text-3xl font-serif text-brand-textMain hover:text-brand-primary">Depoimentos</a>
+            <a href="#contato" class="mobile-link text-3xl font-serif text-brand-textMain hover:text-brand-primary">Contato</a>
+            
+            <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20agendar%20um%20horário." target="_blank" class="mt-8 w-full py-4 bg-brand-textMain text-white text-center rounded-full text-base font-medium tracking-wide hover:bg-brand-primary transition-colors">
+                Agendar pelo WhatsApp
+            </a>
+        </nav>
+    </div>
+
     <section id="inicio" class="relative min-h-[90vh] md:min-h-screen flex items-center pt-20 overflow-hidden">
         <div class="absolute inset-0 z-0 flex md:block flex-col">
-            <!-- Split layout background for desktop, solid for mobile with image below -->
             <div class="w-full md:w-1/2 h-1/2 md:h-full bg-brand-bg absolute left-0 top-0 z-10 md:bg-transparent"></div>
             
             <div class="w-full md:w-[55%] h-full absolute right-0 top-0">
-                <!-- Fallback background color if image fails -->
                 <div class="absolute inset-0 bg-brand-surface"></div>
-                <!-- Editorial Spa Image (using Unsplash source for high quality) -->
                 <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=2070&auto=format&fit=crop" 
-                     alt="Ambiente de spa com produtos naturais e toalhas" 
+                     alt="Ambiente de spa" 
                      class="w-full h-full object-cover object-center animate-slow-pan editorial-image opacity-90"
                      loading="lazy">
-                <!-- Gradient overlay for text legibility on mobile: Adjusted for better contrast on small screens -->
-                <div class="absolute inset-0 bg-gradient-to-t from-brand-bg via-brand-bg/80 to-brand-bg/20 md:bg-gradient-to-l md:from-transparent md:via-brand-bg/80 md:to-brand-bg"></div>
+                <!-- Gradiente para proteger o texto no mobile -->
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-bg via-brand-bg/90 to-brand-bg/30 md:bg-gradient-to-l md:from-transparent md:via-brand-bg/80 md:to-brand-bg"></div>
             </div>
         </div>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full flex flex-col md:flex-row items-center mt-20 md:mt-0">
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full flex flex-col md:flex-row items-center mt-32 md:mt-0">
             <div class="w-full md:w-1/2 md:pr-12 lg:pr-24 flex flex-col animate-fade-in-up">
                 <span class="text-xs font-semibold tracking-[0.2em] text-brand-primary uppercase mb-6 flex items-center gap-4">
                     <span class="w-8 h-px bg-brand-primary"></span>
@@ -236,18 +206,18 @@
                 </span>
                 
                 <h1 class="text-4xl md:text-5xl lg:text-[4rem] leading-[1.1] font-serif text-brand-textMain mb-6">
-                    Um momento <br class="hidden lg:block"/>para cuidar <br class="hidden lg:block"/>de você.
+                    Um momento <br class="hidden md:block"/>para cuidar <br class="hidden md:block"/>de você.
                 </h1>
                 
-                <p class="text-base md:text-lg text-brand-textMuted leading-relaxed mb-10 max-w-md">
+                <p class="text-base md:text-lg text-brand-textMain md:text-brand-textMuted font-medium md:font-normal leading-relaxed mb-10 max-w-md drop-shadow-md md:drop-shadow-none">
                     A Beauty Clinic reúne tratamentos de beleza, estética e bem-estar em um espaço pensado para proporcionar cuidado e experiência.
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                    <a href="https://wa.me/5511999999999" target="_blank" class="w-full sm:w-auto px-8 py-4 bg-brand-textMain text-white rounded-full text-sm font-medium tracking-wide hover:bg-brand-primary transition-colors text-center shadow-lg shadow-brand-textMain/10">
+                    <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20agendar%20meu%20horário." target="_blank" class="w-full sm:w-auto px-8 py-4 bg-brand-textMain text-white rounded-full text-sm font-medium tracking-wide hover:bg-brand-primary transition-colors text-center shadow-lg shadow-brand-textMain/10">
                         Agendar meu horário
                     </a>
-                    <a href="#tratamentos" class="w-full sm:w-auto px-8 py-4 bg-transparent border border-brand-border text-brand-textMain rounded-full text-sm font-medium tracking-wide hover:border-brand-textMain transition-colors text-center">
+                    <a href="#tratamentos" class="w-full sm:w-auto px-8 py-4 bg-transparent border border-brand-textMain md:border-brand-border text-brand-textMain rounded-full text-sm font-medium tracking-wide hover:border-brand-textMain transition-colors text-center">
                         Conhecer tratamentos
                     </a>
                 </div>
@@ -255,9 +225,7 @@
         </div>
     </section>
 
-    <!-- POSICIONAMENTO / INTRO -->
     <section class="py-24 md:py-32 bg-brand-surface relative overflow-hidden">
-        <!-- Decorative subtle element -->
         <div class="absolute -top-24 -right-24 w-64 h-64 rounded-full border border-brand-primary/20 opacity-50 pointer-events-none"></div>
         <div class="absolute -bottom-32 -left-32 w-96 h-96 rounded-full border border-brand-primary/10 opacity-50 pointer-events-none"></div>
 
@@ -272,7 +240,6 @@
         </div>
     </section>
 
-    <!-- TRATAMENTOS -->
     <section id="tratamentos" class="py-24 md:py-32 bg-brand-bg">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             
@@ -282,7 +249,6 @@
                 <p class="text-brand-textMuted">Descubra nossa curadoria de procedimentos desenhados para realçar sua essência e promover bem-estar.</p>
             </div>
 
-            <!-- Accordion Layout for Treatments -->
             <div class="max-w-4xl mx-auto space-y-2">
                 
                 <!-- Categoria 1: Cabelos -->
@@ -299,7 +265,7 @@
                             <div class="pb-10 pt-2 px-2 md:px-14">
                                 <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
                                     <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20tratamento%20de%20Head%20Spa." target="_blank" class="block cursor-pointer">
+                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20tratamento%20de%20Head%20Spa." target="_blank" class="block cursor-pointer">
                                             <div class="flex items-center justify-between mb-2">
                                                 <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Head Spa</h4>
                                                 <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -310,7 +276,7 @@
                                         </a>
                                     </li>
                                     <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20Selagem%20Capilar." target="_blank" class="block cursor-pointer">
+                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20Selagem%20Capilar." target="_blank" class="block cursor-pointer">
                                             <div class="flex items-center justify-between mb-2">
                                                 <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Selagem Capilar</h4>
                                                 <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -321,7 +287,7 @@
                                         </a>
                                     </li>
                                     <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20Hidrata%C3%A7%C3%A3o%20Capilar." target="_blank" class="block cursor-pointer">
+                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20Hidratação%20Capilar." target="_blank" class="block cursor-pointer">
                                             <div class="flex items-center justify-between mb-2">
                                                 <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Hidratação</h4>
                                                 <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -332,7 +298,7 @@
                                         </a>
                                     </li>
                                     <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20Escova%20Progressiva." target="_blank" class="block cursor-pointer">
+                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20Escova%20Progressiva." target="_blank" class="block cursor-pointer">
                                             <div class="flex items-center justify-between mb-2">
                                                 <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Escova Progressiva</h4>
                                                 <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -362,7 +328,7 @@
                             <div class="pb-10 pt-2 px-2 md:px-14">
                                 <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
                                     <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20Micropigmenta%C3%A7%C3%A3o%20Labial." target="_blank" class="block cursor-pointer">
+                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20Micropigmentação%20Labial." target="_blank" class="block cursor-pointer">
                                             <div class="flex items-center justify-between mb-2">
                                                 <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Micropigmentação Labial</h4>
                                                 <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -373,7 +339,7 @@
                                         </a>
                                     </li>
                                     <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20Microagulhamento%20Facial." target="_blank" class="block cursor-pointer">
+                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20Microagulhamento%20Facial." target="_blank" class="block cursor-pointer">
                                             <div class="flex items-center justify-between mb-2">
                                                 <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Microagulhamento</h4>
                                                 <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -384,7 +350,7 @@
                                         </a>
                                     </li>
                                     <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20Dermaplaning." target="_blank" class="block cursor-pointer">
+                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20Dermaplaning." target="_blank" class="block cursor-pointer">
                                             <div class="flex items-center justify-between mb-2">
                                                 <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Dermaplaning</h4>
                                                 <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -395,7 +361,7 @@
                                         </a>
                                     </li>
                                     <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20Limpeza%20Profunda%20de%20Pele." target="_blank" class="block cursor-pointer">
+                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20Limpeza%20Profunda%20de%20Pele." target="_blank" class="block cursor-pointer">
                                             <div class="flex items-center justify-between mb-2">
                                                 <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Limpeza Profunda</h4>
                                                 <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -425,7 +391,7 @@
                             <div class="pb-10 pt-2 px-2 md:px-14">
                                 <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
                                     <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20Massagem%20Relaxante." target="_blank" class="block cursor-pointer">
+                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20Massagem%20Relaxante." target="_blank" class="block cursor-pointer">
                                             <div class="flex items-center justify-between mb-2">
                                                 <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Massagem Relaxante</h4>
                                                 <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -436,7 +402,7 @@
                                         </a>
                                     </li>
                                     <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20Massagem%20Modeladora." target="_blank" class="block cursor-pointer">
+                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20Massagem%20Modeladora." target="_blank" class="block cursor-pointer">
                                             <div class="flex items-center justify-between mb-2">
                                                 <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Massagem Modeladora</h4>
                                                 <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -447,7 +413,7 @@
                                         </a>
                                     </li>
                                     <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20tratamento%20com%20Heccus%20Turbo." target="_blank" class="block cursor-pointer">
+                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20tratamento%20com%20Heccus%20Turbo." target="_blank" class="block cursor-pointer">
                                             <div class="flex items-center justify-between mb-2">
                                                 <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Heccus Turbo</h4>
                                                 <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -458,7 +424,7 @@
                                         </a>
                                     </li>
                                     <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20Bronzeamento%20Artificial." target="_blank" class="block cursor-pointer">
+                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20Bronzeamento%20Artificial." target="_blank" class="block cursor-pointer">
                                             <div class="flex items-center justify-between mb-2">
                                                 <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Bronzeamento Artificial</h4>
                                                 <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -488,7 +454,7 @@
                             <div class="pb-10 pt-2 px-2 md:px-14">
                                 <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
                                     <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20Spa%20dos%20P%C3%A9s." target="_blank" class="block cursor-pointer">
+                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20Spa%20dos%20Pés." target="_blank" class="block cursor-pointer">
                                             <div class="flex items-center justify-between mb-2">
                                                 <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Spa dos Pés</h4>
                                                 <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -499,7 +465,7 @@
                                         </a>
                                     </li>
                                     <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20Pl%C3%A1stica%20dos%20P%C3%A9s." target="_blank" class="block cursor-pointer">
+                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20Plástica%20dos%20Pés." target="_blank" class="block cursor-pointer">
                                             <div class="flex items-center justify-between mb-2">
                                                 <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Plástica dos Pés</h4>
                                                 <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -510,7 +476,7 @@
                                         </a>
                                     </li>
                                     <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20Esmalta%C3%A7%C3%A3o." target="_blank" class="block cursor-pointer">
+                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20Esmaltação." target="_blank" class="block cursor-pointer">
                                             <div class="flex items-center justify-between mb-2">
                                                 <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Esmaltação</h4>
                                                 <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -527,30 +493,18 @@
                 </div>
 
             </div>
-            
-            <div class="mt-16 text-center">
-                <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20uma%20consultora%20da%20Beauty%20Clinic." target="_blank" class="inline-flex items-center justify-center px-8 py-3 bg-white border border-brand-border text-brand-textMain rounded-full text-sm font-medium shadow-sm hover:border-brand-textMain transition-colors">
-                    Falar com uma consultora
-                </a>
-            </div>
-
         </div>
     </section>
 
-    <!-- DESTAQUE HEAD SPA -->
     <section class="py-24 md:py-0 bg-brand-textMain text-brand-bg relative overflow-hidden">
         <div class="flex flex-col md:flex-row min-h-[80vh]">
-            
-            <!-- Imagem -->
             <div class="w-full md:w-1/2 h-[50vh] md:h-auto relative reveal">
-                <!-- Using Unsplash for premium editorial look representing hair care / relaxation -->
                 <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2070&auto=format&fit=crop" 
-                     alt="Detalhe de tratamento capilar e bem-estar" 
+                     alt="Detalhe de tratamento capilar" 
                      class="w-full h-full object-cover editorial-image opacity-80"
                      loading="lazy">
             </div>
 
-            <!-- Conteúdo -->
             <div class="w-full md:w-1/2 flex items-center p-8 md:p-16 lg:p-24 reveal" style="transition-delay: 0.2s">
                 <div class="max-w-xl">
                     <span class="text-brand-primary/80 uppercase tracking-widest text-xs font-semibold mb-4 block">Assinatura Beauty Clinic</span>
@@ -561,7 +515,6 @@
                         Muito além de uma lavagem. O Head Spa é uma experiência imersiva que une saúde capilar e relaxamento profundo, utilizando técnicas japonesas para renovar suas energias.
                     </p>
 
-                    <!-- Steps Timeline -->
                     <div class="space-y-6">
                         <div class="flex items-start gap-6 group">
                             <span class="font-serif text-xl text-brand-primary/60 group-hover:text-brand-primary transition-colors">01</span>
@@ -596,7 +549,6 @@
         </div>
     </section>
 
-    <!-- EXPERIÊNCIA / DIFERENCIAIS -->
     <section id="experiencia" class="py-24 md:py-32 bg-brand-surface">
         <div class="max-w-7xl mx-auto px-6 lg:px-12 text-center reveal">
             <h2 class="text-3xl md:text-4xl font-serif text-brand-textMain mb-16">Nossa Essência</h2>
@@ -635,7 +587,6 @@
         </div>
     </section>
 
-    <!-- DEPOIMENTOS -->
     <section id="depoimentos" class="py-24 md:py-32 bg-brand-bg relative">
         <div class="max-w-5xl mx-auto px-6 lg:px-12 text-center reveal">
             <span class="text-xs font-semibold tracking-widest text-brand-primary uppercase mb-4 block">Avaliações</span>
@@ -653,30 +604,18 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-border text-left relative">
                     <i data-lucide="quote" class="absolute top-8 right-8 w-8 h-8 text-brand-surface stroke-[1] fill-brand-surface"></i>
-                    <div class="flex text-yellow-500 mb-4 scale-75 origin-left">
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    </div>
                     <p class="text-brand-textMuted text-sm leading-relaxed mb-6 italic">"Um ótimo atendimento, profissionais capacitadas, um ambiente muito agradável."</p>
                     <p class="text-brand-textMain font-medium text-sm">— Cliente Beauty Clinic</p>
                 </div>
-                <!-- Card 2 -->
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-border text-left relative md:-translate-y-4">
                     <i data-lucide="quote" class="absolute top-8 right-8 w-8 h-8 text-brand-surface stroke-[1] fill-brand-surface"></i>
-                    <div class="flex text-yellow-500 mb-4 scale-75 origin-left">
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    </div>
                     <p class="text-brand-textMuted text-sm leading-relaxed mb-6 italic">"Ambiente maravilhoso, a Kah é uma profissional de muita luz. Super recomendo a experiência."</p>
                     <p class="text-brand-textMain font-medium text-sm">— Cliente Beauty Clinic</p>
                 </div>
-                <!-- Card 3 -->
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-border text-left relative">
                     <i data-lucide="quote" class="absolute top-8 right-8 w-8 h-8 text-brand-surface stroke-[1] fill-brand-surface"></i>
-                    <div class="flex text-yellow-500 mb-4 scale-75 origin-left">
-                        <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    </div>
                     <p class="text-brand-textMuted text-sm leading-relaxed mb-6 italic">"Local aconchegante, outro nível… amei demais, os tratamentos são excelentes."</p>
                     <p class="text-brand-textMain font-medium text-sm">— Cliente Beauty Clinic</p>
                 </div>
@@ -684,10 +623,8 @@
         </div>
     </section>
 
-    <!-- SOBRE O ESPAÇO -->
     <section class="py-24 md:py-32 bg-brand-surface">
         <div class="max-w-7xl mx-auto px-6 lg:px-12 reveal">
-            
             <div class="text-center max-w-2xl mx-auto mb-16">
                 <span class="text-xs font-semibold tracking-widest text-brand-primary uppercase mb-4 block">O Ambiente</span>
                 <h2 class="text-3xl md:text-4xl font-serif text-brand-textMain mb-6">Um refúgio de bem-estar</h2>
@@ -696,42 +633,29 @@
                 </p>
             </div>
 
-            <!-- Grid de Fotos do Espaço -->
             <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 h-auto md:h-[500px]">
-                
-                <!-- Imagem Principal -->
                 <div class="md:col-span-8 rounded-3xl overflow-hidden h-[300px] md:h-full relative group shadow-sm">
                     <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?q=80&w=2070&auto=format&fit=crop" 
-                         alt="Interior aconchegante de clínica de estética" 
-                         class="w-full h-full object-cover editorial-image transition-transform duration-1000 group-hover:scale-105"
-                         loading="lazy">
+                         alt="Interior de clínica" 
+                         class="w-full h-full object-cover editorial-image transition-transform duration-1000 group-hover:scale-105" loading="lazy">
                 </div>
-                
-                <!-- Imagens Secundárias -->
                 <div class="md:col-span-4 flex flex-row md:flex-col gap-4 md:gap-6 h-[150px] md:h-full">
                     <div class="w-1/2 md:w-full h-full md:h-1/2 rounded-3xl overflow-hidden relative group shadow-sm">
                         <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=2070&auto=format&fit=crop" 
-                             alt="Detalhes relaxantes do spa" 
-                             class="w-full h-full object-cover editorial-image transition-transform duration-1000 group-hover:scale-105"
-                             loading="lazy">
+                             alt="Detalhes spa" class="w-full h-full object-cover editorial-image transition-transform duration-1000 group-hover:scale-105" loading="lazy">
                     </div>
                     <div class="w-1/2 md:w-full h-full md:h-1/2 rounded-3xl overflow-hidden relative group shadow-sm">
                         <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=2070&auto=format&fit=crop" 
-                             alt="Produtos de cuidado com a pele" 
-                             class="w-full h-full object-cover editorial-image transition-transform duration-1000 group-hover:scale-105"
-                             loading="lazy">
+                             alt="Produtos" class="w-full h-full object-cover editorial-image transition-transform duration-1000 group-hover:scale-105" loading="lazy">
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
 
-    <!-- CTA & CONTATO -->
     <section id="contato" class="py-24 md:py-32 bg-brand-bg relative">
         <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row gap-16 lg:gap-24 items-center">
             
-            <!-- CTA Text -->
             <div class="w-full md:w-1/2 reveal">
                 <h2 class="text-4xl md:text-5xl font-serif text-brand-textMain mb-6 leading-tight">
                     Seu próximo momento de autocuidado começa aqui.
@@ -744,7 +668,6 @@
                 </a>
             </div>
 
-            <!-- Info Box with Map -->
             <div class="w-full md:w-1/2 reveal" style="transition-delay: 0.2s">
                 <div class="bg-brand-surface p-8 md:p-12 rounded-3xl border border-brand-border/50 flex flex-col h-full">
                     <h3 class="font-serif text-2xl text-brand-textMain mb-8">Nossa Localização</h3>
@@ -761,7 +684,6 @@
                                 </p>
                             </div>
                         </li>
-                        
                         <li class="flex items-start gap-4">
                             <i data-lucide="instagram" class="w-5 h-5 text-brand-primary mt-1 shrink-0"></i>
                             <div>
@@ -771,7 +693,6 @@
                         </li>
                     </ul>
 
-                    <!-- Google Maps Embed -->
                     <div class="w-full h-48 md:h-64 rounded-2xl overflow-hidden relative shadow-inner border border-brand-border mt-auto">
                         <iframe 
                             src="https://maps.google.com/maps?q=Av.%20Agostinho%20Rubin,%20456,%20Jardim%20Germ%C3%A2nia,%20S%C3%A3o%20Paulo&t=&z=15&ie=UTF8&iwloc=&output=embed" 
@@ -779,7 +700,7 @@
                             allowfullscreen="" 
                             loading="lazy" 
                             referrerpolicy="no-referrer-when-downgrade"
-                            title="Mapa da localização da Beauty Clinic">
+                            title="Mapa">
                         </iframe>
                     </div>
                 </div>
@@ -787,11 +708,9 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="bg-brand-textMain text-white pt-20 pb-10 border-t border-brand-textMain">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-12 md:gap-0 mb-16">
-                
                 <div class="text-center md:text-left">
                     <h2 class="font-serif text-2xl md:text-3xl mb-2 text-brand-bg">Beauty Clinic</h2>
                     <p class="text-brand-bg/60 text-xs tracking-widest uppercase font-sans mb-4">por Karynna Deyse</p>
@@ -813,31 +732,21 @@
 
             <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-brand-bg/40">
                 <p>Av. Agostinho Rubin, 456 - Jardim Germânia, SP</p>
-                <p>&copy; <span id="year"></span> Beauty Clinic por Karynna Deyse. Todos os direitos reservados.</p>
+                <p>&copy; <span id="year"></span> Beauty Clinic. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <!-- FLOATING WHATSAPP BUTTON (Visible mainly on mobile, discrete on desktop) -->
     <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-xl hover:scale-110 transition-transform flex items-center justify-center md:bottom-10 md:right-10 group">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
         </svg>
-        <!-- Tooltip on desktop -->
-        <span class="absolute right-full mr-4 bg-brand-textMain text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none hidden md:block">
-            Agendar horário
-        </span>
     </a>
 
-    <!-- JAVASCRIPT -->
     <script>
-        // Initialize Icons
         lucide.createIcons();
-
-        // Current Year for Copyright
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Header Scroll Effect
         const header = document.getElementById('header');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -849,70 +758,67 @@
             }
         });
 
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const closeMenuBtn = document.getElementById('close-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
+        /* LÓGICA DO MENU MOBILE CORRIGIDA */
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const menuIcon = document.getElementById('menuIcon');
+        const mobileMenu = document.getElementById('mobileMenu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
 
         function toggleMenu() {
-            const isClosed = mobileMenu.classList.contains('translate-x-full');
-            if (isClosed) {
-                mobileMenu.classList.remove('translate-x-full');
-                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            const isHidden = mobileMenu.classList.contains('hidden');
+            
+            if (isHidden) {
+                // Abre o menu
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
+                setTimeout(() => {
+                    mobileMenu.classList.remove('opacity-0');
+                    mobileMenu.classList.add('opacity-100');
+                }, 10);
+                
+                menuIcon.setAttribute('data-lucide', 'x');
+                lucide.createIcons();
+                document.body.style.overflow = 'hidden'; // trava o scroll de fundo
             } else {
-                mobileMenu.classList.add('translate-x-full');
-                document.body.style.overflow = '';
+                // Fecha o menu
+                mobileMenu.classList.remove('opacity-100');
+                mobileMenu.classList.add('opacity-0');
+                setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                }, 300); // aguarda a transição terminar
+                
+                menuIcon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+                document.body.style.overflow = ''; // destrava o scroll
             }
         }
 
         mobileMenuBtn.addEventListener('click', toggleMenu);
-        closeMenuBtn.addEventListener('click', toggleMenu);
         mobileLinks.forEach(link => {
             link.addEventListener('click', toggleMenu);
         });
 
-        // Scroll Reveal Animation (Intersection Observer)
+        // Efeito Reveal
         const revealElements = document.querySelectorAll('.reveal');
-        
-        const revealCallback = (entries, observer) => {
+        const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    // Optional: Stop observing once revealed
-                    // observer.unobserve(entry.target);
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
-        };
-
-        const revealOptions = {
-            root: null,
-            rootMargin: '0px 0px -100px 0px',
-            threshold: 0.1
-        };
-
-        const revealObserver = new IntersectionObserver(revealCallback, revealOptions);
+        }, { rootMargin: '0px 0px -100px 0px', threshold: 0.1 });
         
-        revealElements.forEach(el => {
-            revealObserver.observe(el);
-        });
+        revealElements.forEach(el => revealObserver.observe(el));
 
-        // Accordion Logic
+        // Acordeão
         const accordionItems = document.querySelectorAll('.accordion-item');
-        
         accordionItems.forEach(item => {
             const header = item.querySelector('.accordion-header');
-            
             header.addEventListener('click', () => {
                 const isOpen = item.classList.contains('is-open');
-                
-                // Fecha todos os outros acordeões
-                accordionItems.forEach(otherItem => {
-                    otherItem.classList.remove('is-open');
-                    otherItem.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
+                accordionItems.forEach(other => {
+                    other.classList.remove('is-open');
+                    other.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
                 });
-                
-                // Se o que foi clicado não estava aberto, abre ele
                 if (!isOpen) {
                     item.classList.add('is-open');
                     header.setAttribute('aria-expanded', 'true');
