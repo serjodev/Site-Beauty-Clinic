@@ -3,23 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beauty Clinic por Karynna Deyse | Estética, Beleza e Bem-Estar</title>
+    <meta name="color-scheme" content="light"> <!-- Evita que navegadores mobile forcem cores escuras quebrando o layout -->
+    <title>Beauty Clinic por Karynna Deyse | Estética e Bem-Estar</title>
     <meta name="description" content="A Beauty Clinic por Karynna Deyse reúne tratamentos voltados à beleza, estética e bem-estar em um ambiente acolhedor. Agende seu momento de autocuidado.">
     
+    <!-- Open Graph -->
     <meta property="og:title" content="Beauty Clinic por Karynna Deyse | Estética e Bem-Estar">
     <meta property="og:description" content="Um espaço pensado para proporcionar cuidado e experiência. Conheça nossos tratamentos de estética facial, corporal e Head Spa.">
     <meta property="og:type" content="website">
 
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
+    <!-- Tailwind Config & Custom Styles -->
     <script>
         tailwind.config = {
             theme: {
@@ -38,186 +42,98 @@
                     fontFamily: {
                         serif: ['"Cormorant Garamond"', 'serif'],
                         sans: ['"DM Sans"', 'sans-serif'],
-                    },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-                        'slow-pan': 'panImage 20s linear infinite alternate',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        panImage: {
-                            '0%': { objectPosition: '0% 50%' },
-                            '100%': { objectPosition: '100% 50%' },
-                        }
                     }
                 }
             }
         }
     </script>
-
     <style>
-        :root {
-            --whatsapp-color: #25D366;
-            --whatsapp-hover: #1EBE5C;
-        }
-
         body {
             background-color: theme('colors.brand.bg');
             color: theme('colors.brand.textMain');
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
-
-        /* Animações de Scroll (Reveal) */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Efeito de hover em links */
-        .hover-underline {
-            position: relative;
-            display: inline-block;
-        }
-        .hover-underline::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            transform: scaleX(0);
-            height: 1px;
-            bottom: 0;
-            left: 0;
-            background-color: currentColor;
-            transform-origin: bottom right;
-            transition: transform 0.3s ease-out;
-        }
-        .hover-underline:hover::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
-
-        /* Imagens com estilo editorial */
-        .editorial-image {
-            filter: contrast(1.05) saturate(0.95) brightness(0.95);
-            transition: filter 0.5s ease;
-        }
-        .editorial-image:hover {
-            filter: contrast(1) saturate(1) brightness(1);
-        }
-
-        /* Animação do Acordeão (Sanfona) */
-        .accordion-content-wrapper {
+        /* Acordeão para Tratamentos */
+        .accordion-content {
             display: grid;
             grid-template-rows: 0fr;
-            transition: grid-template-rows 0.4s ease-in-out;
+            transition: grid-template-rows 0.4s ease-out;
         }
-        .accordion-item.is-open .accordion-content-wrapper {
+        .accordion-content.is-open {
             grid-template-rows: 1fr;
         }
-        .accordion-content {
+        .accordion-inner {
             overflow: hidden;
-            opacity: 0;
-            transition: opacity 0.4s ease-in-out;
-        }
-        .accordion-item.is-open .accordion-content {
-            opacity: 1;
-            transition-delay: 0.2s;
-        }
-        .accordion-item.is-open .accordion-icon {
-            transform: rotate(180deg);
         }
     </style>
 </head>
-<body class="font-sans selection:bg-brand-primary selection:text-white relative">
+<body class="font-sans antialiased text-brand-textMain bg-brand-bg relative">
 
-    <header id="header" class="fixed w-full top-0 z-50 transition-all duration-300 bg-brand-bg/90 backdrop-blur-md border-b border-transparent">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between relative z-50">
+    <!-- HEADER & NAVEGAÇÃO -->
+    <header class="fixed w-full top-0 z-50 bg-brand-bg/95 backdrop-blur-md border-b border-brand-border transition-all duration-300 h-20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-full flex items-center justify-between">
             <!-- Logo -->
-            <a href="#" class="font-serif text-xl md:text-2xl font-medium tracking-wide text-brand-textMain hover:opacity-80 transition-opacity">
-                Beauty Clinic<span class="block text-[0.6rem] md:text-xs font-sans tracking-widest uppercase text-brand-textMuted mt-0.5">por Karynna Deyse</span>
-            </a>
+            <a href="#" class="font-serif text-2xl tracking-wide text-brand-textMain z-50">Beauty Clinic</a>
 
-            <!-- Desktop Nav -->
-            <nav class="hidden lg:flex items-center gap-10">
-                <a href="#inicio" class="text-sm tracking-wide hover:text-brand-primary transition-colors hover-underline">Início</a>
-                <a href="#tratamentos" class="text-sm tracking-wide hover:text-brand-primary transition-colors hover-underline">Tratamentos</a>
-                <a href="#experiencia" class="text-sm tracking-wide hover:text-brand-primary transition-colors hover-underline">Experiência</a>
-                <a href="#depoimentos" class="text-sm tracking-wide hover:text-brand-primary transition-colors hover-underline">Depoimentos</a>
-                <a href="#contato" class="text-sm tracking-wide hover:text-brand-primary transition-colors hover-underline">Contato</a>
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="#hero" class="text-sm uppercase tracking-widest text-brand-textMuted hover:text-brand-textMain transition-colors">Início</a>
+                <a href="#tratamentos" class="text-sm uppercase tracking-widest text-brand-textMuted hover:text-brand-textMain transition-colors">Tratamentos</a>
+                <a href="#espaco" class="text-sm uppercase tracking-widest text-brand-textMuted hover:text-brand-textMain transition-colors">O Espaço</a>
+                <a href="#depoimentos" class="text-sm uppercase tracking-widest text-brand-textMuted hover:text-brand-textMain transition-colors">Depoimentos</a>
+                <a href="#contato" class="text-sm uppercase tracking-widest text-brand-textMuted hover:text-brand-textMain transition-colors">Contato</a>
+                <a href="https://wa.me/5511999999999?text=Olá, gostaria de agendar um atendimento na Beauty Clinic." target="_blank" class="px-6 py-2 bg-brand-primary text-white text-sm uppercase tracking-widest rounded-full hover:bg-brand-primaryDark transition-all duration-300 transform hover:scale-105 shadow-md">Agendar</a>
             </nav>
 
-            <!-- CTA Button Desktop -->
-            <div class="hidden lg:block">
-                <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20agendar%20um%20horário." target="_blank" rel="noopener noreferrer" class="group relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium text-white transition-all duration-200 bg-brand-textMain rounded-full hover:bg-brand-primary overflow-hidden">
-                    <span class="relative z-10 flex items-center gap-2">Agendar horário</span>
-                </a>
-            </div>
-
-            <!-- Mobile Menu Button -->
-            <button id="mobileMenuBtn" class="lg:hidden p-2 -mr-2 text-brand-textMain focus:outline-none" aria-label="Abrir menu">
-                <i data-lucide="menu" id="menuIcon" class="w-7 h-7"></i>
+            <!-- Mobile Menu Button (Hamburger e Close separados para evitar bugs) -->
+            <button id="mobileMenuBtn" class="md:hidden text-brand-textMain p-2 focus:outline-none z-50 relative">
+                <div id="icon-menu">
+                    <i data-lucide="menu" class="w-7 h-7"></i>
+                </div>
+                <div id="icon-close" class="hidden">
+                    <i data-lucide="x" class="w-7 h-7"></i>
+                </div>
             </button>
         </div>
     </header>
 
-    <!-- Mobile Menu Overlay (CORREÇÃO APLICADA AQUI) -->
-    <div id="mobileMenu" class="fixed inset-0 bg-brand-bg z-40 hidden flex-col items-center justify-center pt-16 px-6 opacity-0 transition-opacity duration-300">
-        <nav class="flex flex-col gap-8 text-center w-full">
-            <a href="#inicio" class="mobile-link text-3xl font-serif text-brand-textMain hover:text-brand-primary">Início</a>
-            <a href="#tratamentos" class="mobile-link text-3xl font-serif text-brand-textMain hover:text-brand-primary">Tratamentos</a>
-            <a href="#experiencia" class="mobile-link text-3xl font-serif text-brand-textMain hover:text-brand-primary">Experiência</a>
-            <a href="#depoimentos" class="mobile-link text-3xl font-serif text-brand-textMain hover:text-brand-primary">Depoimentos</a>
-            <a href="#contato" class="mobile-link text-3xl font-serif text-brand-textMain hover:text-brand-primary">Contato</a>
-            
-            <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20agendar%20um%20horário." target="_blank" class="mt-8 w-full py-4 bg-brand-textMain text-white text-center rounded-full text-base font-medium tracking-wide hover:bg-brand-primary transition-colors">
-                Agendar pelo WhatsApp
-            </a>
-        </nav>
+    <!-- Mobile Menu Overlay Corrigido -->
+    <div id="mobileMenu" class="fixed inset-0 bg-brand-bg z-40 hidden flex-col items-center justify-center space-y-8 opacity-0 transition-opacity duration-300 w-full h-[100dvh]">
+        <a href="#hero" class="mobile-link text-2xl font-serif tracking-widest text-brand-textMain">Início</a>
+        <a href="#tratamentos" class="mobile-link text-2xl font-serif tracking-widest text-brand-textMain">Tratamentos</a>
+        <a href="#espaco" class="mobile-link text-2xl font-serif tracking-widest text-brand-textMain">O Espaço</a>
+        <a href="#depoimentos" class="mobile-link text-2xl font-serif tracking-widest text-brand-textMain">Depoimentos</a>
+        <a href="#contato" class="mobile-link text-2xl font-serif tracking-widest text-brand-textMain">Contato</a>
+        <a href="https://wa.me/5511999999999?text=Olá, gostaria de agendar um atendimento na Beauty Clinic." target="_blank" class="px-8 py-4 bg-brand-primary text-white text-sm uppercase tracking-widest rounded-full shadow-lg mt-6 w-[80%] text-center">Agendar horário</a>
     </div>
 
-    <section id="inicio" class="relative min-h-[90vh] md:min-h-screen flex items-center pt-20 overflow-hidden">
-        <div class="absolute inset-0 z-0 flex md:block flex-col">
-            <div class="w-full md:w-1/2 h-1/2 md:h-full bg-brand-bg absolute left-0 top-0 z-10 md:bg-transparent"></div>
-            
-            <div class="w-full md:w-[55%] h-full absolute right-0 top-0">
-                <div class="absolute inset-0 bg-brand-surface"></div>
-                <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=2070&auto=format&fit=crop" 
-                     alt="Ambiente de spa" 
-                     class="w-full h-full object-cover object-center animate-slow-pan editorial-image opacity-90"
-                     loading="lazy">
-                <!-- Gradiente para proteger o texto no mobile -->
-                <div class="absolute inset-0 bg-gradient-to-t from-brand-bg via-brand-bg/90 to-brand-bg/30 md:bg-gradient-to-l md:from-transparent md:via-brand-bg/80 md:to-brand-bg"></div>
-            </div>
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative pt-20 lg:pt-0 min-h-screen flex items-center">
+        <div class="absolute inset-0 z-0 lg:w-1/2 lg:right-0 lg:left-auto">
+            <img src="https://images.unsplash.com/photo-1600334129128-685054110230?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Spa e Bem Estar" class="w-full h-full object-cover">
+            <!-- Overlay gradiente mobile para legibilidade perfeita -->
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-bg via-brand-bg/80 to-transparent lg:hidden"></div>
         </div>
-
-        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full flex flex-col md:flex-row items-center mt-32 md:mt-0">
-            <div class="w-full md:w-1/2 md:pr-12 lg:pr-24 flex flex-col animate-fade-in-up">
-                <span class="text-xs font-semibold tracking-[0.2em] text-brand-primary uppercase mb-6 flex items-center gap-4">
-                    <span class="w-8 h-px bg-brand-primary"></span>
-                    Beauty • Wellness • Self-care
-                </span>
+        
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 w-full relative z-10 flex flex-col lg:flex-row">
+            <div class="w-full lg:w-1/2 py-20 lg:py-32 lg:pr-12">
+                <div class="flex items-center space-x-4 mb-6">
+                    <span class="w-12 h-[1px] bg-brand-primary"></span>
+                    <span class="text-xs uppercase tracking-[0.2em] text-brand-primaryDark font-medium">Beauty • Wellness • Self-care</span>
+                </div>
                 
-                <h1 class="text-4xl md:text-5xl lg:text-[4rem] leading-[1.1] font-serif text-brand-textMain mb-6">
-                    Um momento <br class="hidden md:block"/>para cuidar <br class="hidden md:block"/>de você.
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif leading-tight text-brand-textMain mb-6">
+                    Um momento para<br><span class="italic text-brand-primary">cuidar de você.</span>
                 </h1>
                 
-                <p class="text-base md:text-lg text-brand-textMain md:text-brand-textMuted font-medium md:font-normal leading-relaxed mb-10 max-w-md drop-shadow-md md:drop-shadow-none">
+                <p class="text-lg text-brand-textMuted mb-10 max-w-md leading-relaxed">
                     A Beauty Clinic reúne tratamentos de beleza, estética e bem-estar em um espaço pensado para proporcionar cuidado e experiência.
                 </p>
                 
-                <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                    <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20agendar%20meu%20horário." target="_blank" class="w-full sm:w-auto px-8 py-4 bg-brand-textMain text-white rounded-full text-sm font-medium tracking-wide hover:bg-brand-primary transition-colors text-center shadow-lg shadow-brand-textMain/10">
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="https://wa.me/5511999999999?text=Olá, gostaria de agendar um atendimento na Beauty Clinic." target="_blank" class="px-8 py-4 bg-brand-textMain text-brand-bg text-sm uppercase tracking-widest text-center hover:bg-brand-primary transition-colors duration-300">
                         Agendar meu horário
                     </a>
-                    <a href="#tratamentos" class="w-full sm:w-auto px-8 py-4 bg-transparent border border-brand-textMain md:border-brand-border text-brand-textMain rounded-full text-sm font-medium tracking-wide hover:border-brand-textMain transition-colors text-center">
+                    <a href="#tratamentos" class="px-8 py-4 border border-brand-textMain text-brand-textMain text-sm uppercase tracking-widest text-center hover:bg-brand-textMain hover:text-brand-bg transition-colors duration-300">
                         Conhecer tratamentos
                     </a>
                 </div>
@@ -225,375 +141,183 @@
         </div>
     </section>
 
-    <section class="py-24 md:py-32 bg-brand-surface relative overflow-hidden">
-        <div class="absolute -top-24 -right-24 w-64 h-64 rounded-full border border-brand-primary/20 opacity-50 pointer-events-none"></div>
-        <div class="absolute -bottom-32 -left-32 w-96 h-96 rounded-full border border-brand-primary/10 opacity-50 pointer-events-none"></div>
+    <!-- TRATAMENTOS -->
+    <section id="tratamentos" class="py-24 bg-brand-bg">
+        <div class="max-w-4xl mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-serif text-brand-textMain mb-4">Nossos Tratamentos</h2>
+                <p class="text-brand-textMuted max-w-xl mx-auto">Procedimentos realizados com excelência, focados em realçar a sua melhor versão.</p>
+            </div>
 
-        <div class="max-w-4xl mx-auto px-6 text-center reveal">
-            <i data-lucide="sparkles" class="w-6 h-6 text-brand-primary mx-auto mb-6 opacity-80"></i>
-            <h2 class="text-3xl md:text-4xl font-serif text-brand-textMain mb-8 leading-tight">
-                Mais do que estética.<br> Uma experiência de cuidado.
-            </h2>
-            <p class="text-lg md:text-xl text-brand-textMuted leading-relaxed font-light">
-                A <span class="text-brand-textMain font-medium">Beauty Clinic por Karynna Deyse</span> reúne tratamentos voltados à beleza, estética e bem-estar em um ambiente acolhedor, pensado meticulosamente para que cada atendimento seja também um momento profundo de autocuidado e reconexão.
-            </p>
+            <div class="space-y-4">
+                
+                <!-- Categoria 1 -->
+                <div class="border border-brand-border rounded-xl bg-brand-surface/30 overflow-hidden">
+                    <button class="w-full flex items-center justify-between p-6 focus:outline-none" onclick="toggleAccordion('cat1')">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary">
+                                <i data-lucide="scissors" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="text-xl font-serif text-brand-textMain">Cabelos & Head Spa</h3>
+                        </div>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-brand-textMuted transition-transform duration-300" id="icon-cat1"></i>
+                    </button>
+                    <div id="cat1" class="accordion-content">
+                        <div class="accordion-inner px-6 pb-6 pt-2">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <a href="https://wa.me/5511999999999?text=Olá, tenho interesse no procedimento: Head Spa." target="_blank" class="group p-4 bg-brand-bg border border-brand-border rounded-lg hover:border-brand-primary transition-all duration-300 flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-medium text-brand-textMain">Head Spa</h4>
+                                        <p class="text-sm text-brand-textMuted mt-1">Ritual completo e análise capilar</p>
+                                    </div>
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity -translate-x-2 group-hover:translate-x-0 transform duration-300"></i>
+                                </a>
+                                <a href="https://wa.me/5511999999999?text=Olá, tenho interesse no procedimento: Selagem Capilar." target="_blank" class="group p-4 bg-brand-bg border border-brand-border rounded-lg hover:border-brand-primary transition-all duration-300 flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-medium text-brand-textMain">Selagem Capilar</h4>
+                                        <p class="text-sm text-brand-textMuted mt-1">Alinhamento e brilho</p>
+                                    </div>
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity -translate-x-2 group-hover:translate-x-0 transform duration-300"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categoria 2 -->
+                <div class="border border-brand-border rounded-xl bg-brand-surface/30 overflow-hidden">
+                    <button class="w-full flex items-center justify-between p-6 focus:outline-none" onclick="toggleAccordion('cat2')">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary">
+                                <i data-lucide="sparkles" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="text-xl font-serif text-brand-textMain">Estética Facial</h3>
+                        </div>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-brand-textMuted transition-transform duration-300" id="icon-cat2"></i>
+                    </button>
+                    <div id="cat2" class="accordion-content">
+                        <div class="accordion-inner px-6 pb-6 pt-2">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <a href="https://wa.me/5511999999999?text=Olá, tenho interesse no procedimento: Limpeza Profunda de Pele." target="_blank" class="group p-4 bg-brand-bg border border-brand-border rounded-lg hover:border-brand-primary transition-all duration-300 flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-medium text-brand-textMain">Limpeza Profunda</h4>
+                                        <p class="text-sm text-brand-textMuted mt-1">Renovação e extração</p>
+                                    </div>
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity transform duration-300"></i>
+                                </a>
+                                <a href="https://wa.me/5511999999999?text=Olá, tenho interesse no procedimento: Dermaplaning." target="_blank" class="group p-4 bg-brand-bg border border-brand-border rounded-lg hover:border-brand-primary transition-all duration-300 flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-medium text-brand-textMain">Dermaplaning</h4>
+                                        <p class="text-sm text-brand-textMuted mt-1">Remoção de células mortas</p>
+                                    </div>
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity transform duration-300"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categoria 3 -->
+                <div class="border border-brand-border rounded-xl bg-brand-surface/30 overflow-hidden">
+                    <button class="w-full flex items-center justify-between p-6 focus:outline-none" onclick="toggleAccordion('cat3')">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary">
+                                <i data-lucide="feather" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="text-xl font-serif text-brand-textMain">Estética Corporal</h3>
+                        </div>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-brand-textMuted transition-transform duration-300" id="icon-cat3"></i>
+                    </button>
+                    <div id="cat3" class="accordion-content">
+                        <div class="accordion-inner px-6 pb-6 pt-2">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <a href="https://wa.me/5511999999999?text=Olá, tenho interesse no procedimento: Massagem Relaxante." target="_blank" class="group p-4 bg-brand-bg border border-brand-border rounded-lg hover:border-brand-primary transition-all duration-300 flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-medium text-brand-textMain">Massagem Relaxante</h4>
+                                        <p class="text-sm text-brand-textMuted mt-1">Alívio de tensões</p>
+                                    </div>
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity transform duration-300"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categoria 4 -->
+                <div class="border border-brand-border rounded-xl bg-brand-surface/30 overflow-hidden">
+                    <button class="w-full flex items-center justify-between p-6 focus:outline-none" onclick="toggleAccordion('cat4')">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary">
+                                <i data-lucide="flower-2" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="text-xl font-serif text-brand-textMain">Bem-Estar</h3>
+                        </div>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-brand-textMuted transition-transform duration-300" id="icon-cat4"></i>
+                    </button>
+                    <div id="cat4" class="accordion-content">
+                        <div class="accordion-inner px-6 pb-6 pt-2">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <a href="https://wa.me/5511999999999?text=Olá, tenho interesse no procedimento: Spa dos Pés." target="_blank" class="group p-4 bg-brand-bg border border-brand-border rounded-lg hover:border-brand-primary transition-all duration-300 flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-medium text-brand-textMain">Spa dos Pés</h4>
+                                        <p class="text-sm text-brand-textMuted mt-1">Hidratação e relaxamento</p>
+                                    </div>
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity transform duration-300"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
-    <section id="tratamentos" class="py-24 md:py-32 bg-brand-bg">
+    <!-- SOBRE O ESPAÇO -->
+    <section id="espaco" class="py-24 bg-brand-surface">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
-            
-            <div class="text-center max-w-2xl mx-auto mb-16 md:mb-24 reveal">
-                <span class="text-xs font-semibold tracking-widest text-brand-primary uppercase mb-4 block">Nossos Serviços</span>
-                <h2 class="text-4xl md:text-5xl font-serif text-brand-textMain mb-6">Tratamentos</h2>
-                <p class="text-brand-textMuted">Descubra nossa curadoria de procedimentos desenhados para realçar sua essência e promover bem-estar.</p>
-            </div>
-
-            <div class="max-w-4xl mx-auto space-y-2">
-                
-                <!-- Categoria 1: Cabelos -->
-                <div class="accordion-item border-b border-brand-border reveal is-open">
-                    <button class="accordion-header w-full flex items-center justify-between py-6 md:py-8 text-left focus:outline-none group" aria-expanded="true">
-                        <div class="flex items-center gap-4 md:gap-6">
-                            <i data-lucide="scissors" class="w-6 h-6 md:w-8 md:h-8 text-brand-primary stroke-[1.5]"></i>
-                            <h3 class="font-serif text-2xl md:text-3xl text-brand-textMain group-hover:text-brand-primary transition-colors">Cabelos & Spa</h3>
-                        </div>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-brand-textMuted transition-transform duration-300 accordion-icon"></i>
-                    </button>
-                    <div class="accordion-content-wrapper">
-                        <div class="accordion-content">
-                            <div class="pb-10 pt-2 px-2 md:px-14">
-                                <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
-                                    <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20tratamento%20de%20Head%20Spa." target="_blank" class="block cursor-pointer">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Head Spa</h4>
-                                                <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                                    <i data-lucide="arrow-right" class="w-3 h-3 text-brand-primary"></i>
-                                                </div>
-                                            </div>
-                                            <p class="text-sm text-brand-textMuted leading-relaxed">Terapia capilar relaxante com massagem craniana, desobstrução de poros e estímulo ao crescimento.</p>
-                                        </a>
-                                    </li>
-                                    <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20Selagem%20Capilar." target="_blank" class="block cursor-pointer">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Selagem Capilar</h4>
-                                                <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                                    <i data-lucide="arrow-right" class="w-3 h-3 text-brand-primary"></i>
-                                                </div>
-                                            </div>
-                                            <p class="text-sm text-brand-textMuted leading-relaxed">Realinhamento dos fios, reduzindo frizz e proporcionando brilho intenso e natural.</p>
-                                        </a>
-                                    </li>
-                                    <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20Hidratação%20Capilar." target="_blank" class="block cursor-pointer">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Hidratação</h4>
-                                                <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                                    <i data-lucide="arrow-right" class="w-3 h-3 text-brand-primary"></i>
-                                                </div>
-                                            </div>
-                                            <p class="text-sm text-brand-textMuted leading-relaxed">Reposição profunda de água e nutrientes para devolver vitalidade aos fios.</p>
-                                        </a>
-                                    </li>
-                                    <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20Escova%20Progressiva." target="_blank" class="block cursor-pointer">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Escova Progressiva</h4>
-                                                <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                                    <i data-lucide="arrow-right" class="w-3 h-3 text-brand-primary"></i>
-                                                </div>
-                                            </div>
-                                            <p class="text-sm text-brand-textMuted leading-relaxed">Alisamento térmico que disciplina os fios, garantindo praticidade no dia a dia.</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <!-- Text Content -->
+                <div class="w-full lg:w-1/2">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <span class="w-12 h-[1px] bg-brand-primary"></span>
+                        <span class="text-xs uppercase tracking-[0.2em] text-brand-primaryDark font-medium">A Experiência</span>
                     </div>
-                </div>
-
-                <!-- Categoria 2: Facial -->
-                <div class="accordion-item border-b border-brand-border reveal">
-                    <button class="accordion-header w-full flex items-center justify-between py-6 md:py-8 text-left focus:outline-none group" aria-expanded="false">
-                        <div class="flex items-center gap-4 md:gap-6">
-                            <i data-lucide="sparkles" class="w-6 h-6 md:w-8 md:h-8 text-brand-primary stroke-[1.5]"></i>
-                            <h3 class="font-serif text-2xl md:text-3xl text-brand-textMain group-hover:text-brand-primary transition-colors">Estética Facial</h3>
-                        </div>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-brand-textMuted transition-transform duration-300 accordion-icon"></i>
-                    </button>
-                    <div class="accordion-content-wrapper">
-                        <div class="accordion-content">
-                            <div class="pb-10 pt-2 px-2 md:px-14">
-                                <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
-                                    <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20Micropigmentação%20Labial." target="_blank" class="block cursor-pointer">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Micropigmentação Labial</h4>
-                                                <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                                    <i data-lucide="arrow-right" class="w-3 h-3 text-brand-primary"></i>
-                                                </div>
-                                            </div>
-                                            <p class="text-sm text-brand-textMuted leading-relaxed">Revitalização da cor e contorno dos lábios com naturalidade e sofisticação.</p>
-                                        </a>
-                                    </li>
-                                    <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20Microagulhamento%20Facial." target="_blank" class="block cursor-pointer">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Microagulhamento</h4>
-                                                <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                                    <i data-lucide="arrow-right" class="w-3 h-3 text-brand-primary"></i>
-                                                </div>
-                                            </div>
-                                            <p class="text-sm text-brand-textMuted leading-relaxed">Estímulo natural de colágeno para renovação da pele, atenuando manchas e linhas finas.</p>
-                                        </a>
-                                    </li>
-                                    <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20Dermaplaning." target="_blank" class="block cursor-pointer">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Dermaplaning</h4>
-                                                <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                                    <i data-lucide="arrow-right" class="w-3 h-3 text-brand-primary"></i>
-                                                </div>
-                                            </div>
-                                            <p class="text-sm text-brand-textMuted leading-relaxed">Remoção de células mortas e penugem, revelando uma pele luminosa e uniforme.</p>
-                                        </a>
-                                    </li>
-                                    <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20Limpeza%20Profunda%20de%20Pele." target="_blank" class="block cursor-pointer">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Limpeza Profunda</h4>
-                                                <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                                    <i data-lucide="arrow-right" class="w-3 h-3 text-brand-primary"></i>
-                                                </div>
-                                            </div>
-                                            <p class="text-sm text-brand-textMuted leading-relaxed">Detoxificação da pele, removendo impurezas, cravos e restaurando o viço.</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Categoria 3: Corporal -->
-                <div class="accordion-item border-b border-brand-border reveal">
-                    <button class="accordion-header w-full flex items-center justify-between py-6 md:py-8 text-left focus:outline-none group" aria-expanded="false">
-                        <div class="flex items-center gap-4 md:gap-6">
-                            <i data-lucide="feather" class="w-6 h-6 md:w-8 md:h-8 text-brand-primary stroke-[1.5]"></i>
-                            <h3 class="font-serif text-2xl md:text-3xl text-brand-textMain group-hover:text-brand-primary transition-colors">Estética Corporal</h3>
-                        </div>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-brand-textMuted transition-transform duration-300 accordion-icon"></i>
-                    </button>
-                    <div class="accordion-content-wrapper">
-                        <div class="accordion-content">
-                            <div class="pb-10 pt-2 px-2 md:px-14">
-                                <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
-                                    <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20Massagem%20Relaxante." target="_blank" class="block cursor-pointer">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Massagem Relaxante</h4>
-                                                <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                                    <i data-lucide="arrow-right" class="w-3 h-3 text-brand-primary"></i>
-                                                </div>
-                                            </div>
-                                            <p class="text-sm text-brand-textMuted leading-relaxed">Manobras suaves que aliviam tensões musculares e promovem profundo relaxamento.</p>
-                                        </a>
-                                    </li>
-                                    <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20Massagem%20Modeladora." target="_blank" class="block cursor-pointer">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Massagem Modeladora</h4>
-                                                <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                                    <i data-lucide="arrow-right" class="w-3 h-3 text-brand-primary"></i>
-                                                </div>
-                                            </div>
-                                            <p class="text-sm text-brand-textMuted leading-relaxed">Técnica com movimentos vigorosos para auxiliar na redução de medidas e contorno.</p>
-                                        </a>
-                                    </li>
-                                    <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20tratamento%20com%20Heccus%20Turbo." target="_blank" class="block cursor-pointer">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Heccus Turbo</h4>
-                                                <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                                    <i data-lucide="arrow-right" class="w-3 h-3 text-brand-primary"></i>
-                                                </div>
-                                            </div>
-                                            <p class="text-sm text-brand-textMuted leading-relaxed">Terapia combinada de ultrassom e correntes para tratamento de celulite e gordura localizada.</p>
-                                        </a>
-                                    </li>
-                                    <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20Bronzeamento%20Artificial." target="_blank" class="block cursor-pointer">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Bronzeamento Artificial</h4>
-                                                <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                                    <i data-lucide="arrow-right" class="w-3 h-3 text-brand-primary"></i>
-                                                </div>
-                                            </div>
-                                            <p class="text-sm text-brand-textMuted leading-relaxed">Pele com tom dourado e uniforme de forma segura e controlada.</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Categoria 4: Wellness -->
-                <div class="accordion-item border-b border-brand-border reveal">
-                    <button class="accordion-header w-full flex items-center justify-between py-6 md:py-8 text-left focus:outline-none group" aria-expanded="false">
-                        <div class="flex items-center gap-4 md:gap-6">
-                            <i data-lucide="flower-2" class="w-6 h-6 md:w-8 md:h-8 text-brand-primary stroke-[1.5]"></i>
-                            <h3 class="font-serif text-2xl md:text-3xl text-brand-textMain group-hover:text-brand-primary transition-colors">Bem-Estar</h3>
-                        </div>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-brand-textMuted transition-transform duration-300 accordion-icon"></i>
-                    </button>
-                    <div class="accordion-content-wrapper">
-                        <div class="accordion-content">
-                            <div class="pb-10 pt-2 px-2 md:px-14">
-                                <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
-                                    <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20Spa%20dos%20Pés." target="_blank" class="block cursor-pointer">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Spa dos Pés</h4>
-                                                <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                                    <i data-lucide="arrow-right" class="w-3 h-3 text-brand-primary"></i>
-                                                </div>
-                                            </div>
-                                            <p class="text-sm text-brand-textMuted leading-relaxed">Ritual de esfoliação, hidratação profunda e massagem para alívio e maciez.</p>
-                                        </a>
-                                    </li>
-                                    <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20Plástica%20dos%20Pés." target="_blank" class="block cursor-pointer">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Plástica dos Pés</h4>
-                                                <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                                    <i data-lucide="arrow-right" class="w-3 h-3 text-brand-primary"></i>
-                                                </div>
-                                            </div>
-                                            <p class="text-sm text-brand-textMuted leading-relaxed">Tratamento intensivo para remoção de calosidades e ressecamento extremo.</p>
-                                        </a>
-                                    </li>
-                                    <li class="group">
-                                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20Esmaltação." target="_blank" class="block cursor-pointer">
-                                            <div class="flex items-center justify-between mb-2">
-                                                <h4 class="text-base font-medium text-brand-textMain group-hover:text-brand-primary transition-colors">Esmaltação</h4>
-                                                <div class="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                                    <i data-lucide="arrow-right" class="w-3 h-3 text-brand-primary"></i>
-                                                </div>
-                                            </div>
-                                            <p class="text-sm text-brand-textMuted leading-relaxed">Cuidado finalizador para unhas impecáveis com produtos de alta qualidade.</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 md:py-0 bg-brand-textMain text-brand-bg relative overflow-hidden">
-        <div class="flex flex-col md:flex-row min-h-[80vh]">
-            <div class="w-full md:w-1/2 h-[50vh] md:h-auto relative reveal">
-                <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2070&auto=format&fit=crop" 
-                     alt="Detalhe de tratamento capilar" 
-                     class="w-full h-full object-cover editorial-image opacity-80"
-                     loading="lazy">
-            </div>
-
-            <div class="w-full md:w-1/2 flex items-center p-8 md:p-16 lg:p-24 reveal" style="transition-delay: 0.2s">
-                <div class="max-w-xl">
-                    <span class="text-brand-primary/80 uppercase tracking-widest text-xs font-semibold mb-4 block">Assinatura Beauty Clinic</span>
-                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-serif mb-8 text-white">
-                        Um ritual completo para seus cabelos e para você.
-                    </h2>
-                    <p class="text-brand-bg/70 text-lg mb-12 font-light leading-relaxed">
-                        Muito além de uma lavagem. O Head Spa é uma experiência imersiva que une saúde capilar e relaxamento profundo, utilizando técnicas japonesas para renovar suas energias.
+                    <h2 class="text-3xl md:text-4xl font-serif text-brand-textMain mb-6">Um refúgio para o seu autocuidado.</h2>
+                    <p class="text-brand-textMuted mb-8 leading-relaxed">
+                        A Beauty Clinic foi desenhada para ser mais do que uma clínica de estética. É um ambiente onde cada detalhe — do aroma à iluminação — foi pensado para que o seu tratamento seja um verdadeiro ritual de desconexão e bem-estar.
                     </p>
-
-                    <div class="space-y-6">
-                        <div class="flex items-start gap-6 group">
-                            <span class="font-serif text-xl text-brand-primary/60 group-hover:text-brand-primary transition-colors">01</span>
-                            <div>
-                                <h4 class="text-lg font-medium text-white mb-1">Análise & Aromaterapia</h4>
-                                <p class="text-sm text-brand-bg/50">Avaliação do couro cabeludo e escolha de óleos essenciais personalizados.</p>
-                            </div>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <i data-lucide="coffee" class="w-6 h-6 text-brand-primary mb-3"></i>
+                            <h4 class="font-medium text-brand-textMain mb-1">Ambiente Acolhedor</h4>
+                            <p class="text-sm text-brand-textMuted">Espaço intimista e relaxante.</p>
                         </div>
-                        <div class="flex items-start gap-6 group">
-                            <span class="font-serif text-xl text-brand-primary/60 group-hover:text-brand-primary transition-colors">02</span>
-                            <div>
-                                <h4 class="text-lg font-medium text-white mb-1">Estímulos & Limpeza</h4>
-                                <p class="text-sm text-brand-bg/50">Massagem craniana estimulante seguida de lavagem purificante no lavatório tecnológico.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-6 group">
-                            <span class="font-serif text-xl text-brand-primary/60 group-hover:text-brand-primary transition-colors">03</span>
-                            <div>
-                                <h4 class="text-lg font-medium text-white mb-1">Hidratação & Finalização</h4>
-                                <p class="text-sm text-brand-bg/50">Reposição nutritiva profunda e secagem, revelando fios soltos e couro cabeludo saudável.</p>
-                            </div>
+                        <div>
+                            <i data-lucide="gem" class="w-6 h-6 text-brand-primary mb-3"></i>
+                            <h4 class="font-medium text-brand-textMain mb-1">Atendimento Premium</h4>
+                            <p class="text-sm text-brand-textMuted">Experiência personalizada para você.</p>
                         </div>
                     </div>
-
-                    <div class="mt-12">
-                        <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20Head%20Spa" target="_blank" class="inline-flex items-center gap-2 text-white border-b border-brand-primary pb-1 hover:text-brand-primary transition-colors text-sm uppercase tracking-widest font-medium">
-                            Agendar Experiência <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="experiencia" class="py-24 md:py-32 bg-brand-surface">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12 text-center reveal">
-            <h2 class="text-3xl md:text-4xl font-serif text-brand-textMain mb-16">Nossa Essência</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div class="flex flex-col items-center">
-                    <div class="w-16 h-16 rounded-full bg-brand-bg flex items-center justify-center mb-6 shadow-sm border border-brand-border/50">
-                        <i data-lucide="heart-handshake" class="w-7 h-7 text-brand-primary stroke-[1.5]"></i>
-                    </div>
-                    <h3 class="text-xl font-serif text-brand-textMain mb-3">Atendimento Acolhedor</h3>
-                    <p class="text-brand-textMuted text-sm leading-relaxed max-w-xs text-center">
-                        Um ambiente onde você é recebida com carinho, garantindo que se sinta em casa e relaxada desde o primeiro momento.
-                    </p>
                 </div>
                 
-                <div class="flex flex-col items-center">
-                    <div class="w-16 h-16 rounded-full bg-brand-bg flex items-center justify-center mb-6 shadow-sm border border-brand-border/50">
-                        <i data-lucide="leaf" class="w-7 h-7 text-brand-primary stroke-[1.5]"></i>
+                <!-- Images Grid -->
+                <div class="w-full lg:w-1/2">
+                    <div class="grid grid-cols-2 gap-4">
+                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Detalhe Spa" class="w-full h-[400px] object-cover rounded-xl col-span-2">
+                        <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Ambiente Clinic" class="w-full h-48 object-cover rounded-xl">
+                        <img src="https://images.unsplash.com/photo-1552693673-1bf958298935?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Produtos" class="w-full h-48 object-cover rounded-xl">
                     </div>
-                    <h3 class="text-xl font-serif text-brand-textMain mb-3">Cuidado Integrado</h3>
-                    <p class="text-brand-textMuted text-sm leading-relaxed max-w-xs text-center">
-                        Nossa abordagem une estética de resultados com práticas de relaxamento, promovendo beleza que reflete seu bem-estar interno.
-                    </p>
-                </div>
-
-                <div class="flex flex-col items-center">
-                    <div class="w-16 h-16 rounded-full bg-brand-bg flex items-center justify-center mb-6 shadow-sm border border-brand-border/50">
-                        <i data-lucide="gem" class="w-7 h-7 text-brand-primary stroke-[1.5]"></i>
-                    </div>
-                    <h3 class="text-xl font-serif text-brand-textMain mb-3">Atenção aos Detalhes</h3>
-                    <p class="text-brand-textMuted text-sm leading-relaxed max-w-xs text-center">
-                        Da iluminação à aromaterapia, cada elemento da clínica foi pensado para proporcionar uma experiência sensorial premium.
-                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="depoimentos" class="py-24 md:py-32 bg-brand-bg relative">
-        <div class="max-w-5xl mx-auto px-6 lg:px-12 text-center reveal">
-            <span class="text-xs font-semibold tracking-widest text-brand-primary uppercase mb-4 block">Avaliações</span>
-            <h2 class="text-3xl md:text-5xl font-serif text-brand-textMain mb-6">Quem vive a experiência, recomenda.</h2>
-            
-            <div class="flex items-center justify-center gap-2 mb-12">
-                <div class="flex text-yellow-500">
+    <!-- DEPOIMENTOS (Aspas Corrigidas) -->
+    <section id="depoimentos" class="py-24 bg-brand-bg">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 text-center">
+            <div class="inline-flex items-center justify-center space-x-2 mb-4">
+                <div class="flex text-brand-primary">
                     <i data-lucide="star" class="w-5 h-5 fill-current"></i>
                     <i data-lucide="star" class="w-5 h-5 fill-current"></i>
                     <i data-lucide="star" class="w-5 h-5 fill-current"></i>
@@ -602,228 +326,194 @@
                 </div>
                 <span class="text-brand-textMain font-medium ml-2">5,0 no Google</span>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-border text-left relative">
-                    <i data-lucide="quote" class="absolute top-8 right-8 w-8 h-8 text-brand-surface stroke-[1] fill-brand-surface"></i>
-                    <p class="text-brand-textMuted text-sm leading-relaxed mb-6 italic">"Um ótimo atendimento, profissionais capacitadas, um ambiente muito agradável."</p>
-                    <p class="text-brand-textMain font-medium text-sm">— Cliente Beauty Clinic</p>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-border text-left relative md:-translate-y-4">
-                    <i data-lucide="quote" class="absolute top-8 right-8 w-8 h-8 text-brand-surface stroke-[1] fill-brand-surface"></i>
-                    <p class="text-brand-textMuted text-sm leading-relaxed mb-6 italic">"Ambiente maravilhoso, a Kah é uma profissional de muita luz. Super recomendo a experiência."</p>
-                    <p class="text-brand-textMain font-medium text-sm">— Cliente Beauty Clinic</p>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-border text-left relative">
-                    <i data-lucide="quote" class="absolute top-8 right-8 w-8 h-8 text-brand-surface stroke-[1] fill-brand-surface"></i>
-                    <p class="text-brand-textMuted text-sm leading-relaxed mb-6 italic">"Local aconchegante, outro nível… amei demais, os tratamentos são excelentes."</p>
-                    <p class="text-brand-textMain font-medium text-sm">— Cliente Beauty Clinic</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 md:py-32 bg-brand-surface">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12 reveal">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="text-xs font-semibold tracking-widest text-brand-primary uppercase mb-4 block">O Ambiente</span>
-                <h2 class="text-3xl md:text-4xl font-serif text-brand-textMain mb-6">Um refúgio de bem-estar</h2>
-                <p class="text-brand-textMuted text-base md:text-lg leading-relaxed">
-                    Nosso espaço foi cuidadosamente desenhado para proporcionar paz, conforto e uma pausa na sua rotina. Cada detalhe, da iluminação à aromaterapia, foi pensado para você se desligar do mundo lá fora.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 h-auto md:h-[500px]">
-                <div class="md:col-span-8 rounded-3xl overflow-hidden h-[300px] md:h-full relative group shadow-sm">
-                    <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?q=80&w=2070&auto=format&fit=crop" 
-                         alt="Interior de clínica" 
-                         class="w-full h-full object-cover editorial-image transition-transform duration-1000 group-hover:scale-105" loading="lazy">
-                </div>
-                <div class="md:col-span-4 flex flex-row md:flex-col gap-4 md:gap-6 h-[150px] md:h-full">
-                    <div class="w-1/2 md:w-full h-full md:h-1/2 rounded-3xl overflow-hidden relative group shadow-sm">
-                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=2070&auto=format&fit=crop" 
-                             alt="Detalhes spa" class="w-full h-full object-cover editorial-image transition-transform duration-1000 group-hover:scale-105" loading="lazy">
-                    </div>
-                    <div class="w-1/2 md:w-full h-full md:h-1/2 rounded-3xl overflow-hidden relative group shadow-sm">
-                        <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=2070&auto=format&fit=crop" 
-                             alt="Produtos" class="w-full h-full object-cover editorial-image transition-transform duration-1000 group-hover:scale-105" loading="lazy">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contato" class="py-24 md:py-32 bg-brand-bg relative">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row gap-16 lg:gap-24 items-center">
+            <h2 class="text-3xl md:text-4xl font-serif text-brand-textMain mb-16">Quem vive a experiência, recomenda.</h2>
             
-            <div class="w-full md:w-1/2 reveal">
-                <h2 class="text-4xl md:text-5xl font-serif text-brand-textMain mb-6 leading-tight">
-                    Seu próximo momento de autocuidado começa aqui.
-                </h2>
-                <p class="text-brand-textMuted text-lg mb-10 leading-relaxed max-w-md">
-                    Escolha o tratamento que combina com você e fale com a Beauty Clinic para consultar disponibilidade e agendar seu horário.
-                </p>
-                <a href="https://wa.me/5511999999999" target="_blank" class="inline-flex items-center justify-center px-8 py-4 bg-[#25D366] text-white rounded-full text-sm font-medium tracking-wide hover:bg-[#1EBE5C] transition-colors shadow-lg shadow-[#25D366]/20 gap-2">
-                    <i data-lucide="phone" class="w-4 h-4 fill-current"></i> Agendar pelo WhatsApp
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                <!-- Depoimento 1 -->
+                <div class="relative bg-brand-surface p-8 rounded-2xl shadow-sm overflow-hidden z-0 border border-brand-border/50">
+                    <i data-lucide="quote" class="absolute -top-2 -right-2 w-24 h-24 text-brand-primary opacity-10 z-0 rotate-12"></i>
+                    <div class="relative z-10">
+                        <p class="italic text-brand-textMain mb-6 leading-relaxed">"Um ótimo atendimento, profissionais capacitadas, um ambiente muito agradável."</p>
+                        <span class="text-sm font-bold tracking-wide text-brand-primaryDark uppercase">— Cliente Beauty Clinic</span>
+                    </div>
+                </div>
+                
+                <!-- Depoimento 2 -->
+                <div class="relative bg-brand-surface p-8 rounded-2xl shadow-sm overflow-hidden z-0 border border-brand-border/50">
+                    <i data-lucide="quote" class="absolute -top-2 -right-2 w-24 h-24 text-brand-primary opacity-10 z-0 rotate-12"></i>
+                    <div class="relative z-10">
+                        <p class="italic text-brand-textMain mb-6 leading-relaxed">"Ambiente maravilhoso, a Kah é uma profissional de muita luz. Super recomendo a experiência."</p>
+                        <span class="text-sm font-bold tracking-wide text-brand-primaryDark uppercase">— Cliente Beauty Clinic</span>
+                    </div>
+                </div>
+                
+                <!-- Depoimento 3 -->
+                <div class="relative bg-brand-surface p-8 rounded-2xl shadow-sm overflow-hidden z-0 border border-brand-border/50">
+                    <i data-lucide="quote" class="absolute -top-2 -right-2 w-24 h-24 text-brand-primary opacity-10 z-0 rotate-12"></i>
+                    <div class="relative z-10">
+                        <p class="italic text-brand-textMain mb-6 leading-relaxed">"Local aconchegante, outro nível... amei demais, os tratamentos são excelentes."</p>
+                        <span class="text-sm font-bold tracking-wide text-brand-primaryDark uppercase">— Cliente Beauty Clinic</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAPA & CONTATO -->
+    <section id="contato" class="py-24 bg-brand-surface border-t border-brand-border">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="flex flex-col lg:flex-row gap-16">
+                <!-- Info -->
+                <div class="w-full lg:w-1/3 flex flex-col justify-center">
+                    <h2 class="text-3xl font-serif text-brand-textMain mb-6">Venha nos visitar</h2>
+                    <p class="text-brand-textMuted mb-10">Estamos de portas abertas para receber você em um ambiente pensado para o seu conforto e bem-estar.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-brand-primary mt-1"></i>
+                            <div>
+                                <h4 class="font-medium text-brand-textMain">Endereço</h4>
+                                <p class="text-sm text-brand-textMuted mt-1">Av. Agostinho Rubin, 456<br>Jardim Germânia<br>São Paulo — SP, 05848-000</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <i data-lucide="clock" class="w-5 h-5 text-brand-primary mt-1"></i>
+                            <div>
+                                <h4 class="font-medium text-brand-textMain">Atendimento</h4>
+                                <p class="text-sm text-brand-textMuted mt-1">Atendimento com horário marcado.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10">
+                        <a href="https://wa.me/5511999999999?text=Olá, gostaria de agendar um atendimento na Beauty Clinic." target="_blank" class="inline-flex items-center justify-center px-8 py-4 bg-brand-primary text-white text-sm uppercase tracking-widest hover:bg-brand-primaryDark transition-colors duration-300 w-full sm:w-auto">
+                            Agendar Atendimento
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Map -->
+                <div class="w-full lg:w-2/3 h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-sm border border-brand-border">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3654.40986705779!2d-46.75783302377317!3d-23.661332768565153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce52166a0d249f%3A0xc3afbf466a014bc5!2sAv.%20Agostinho%20Rubin%2C%20456%20-%20Jardim%20Germania%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2005848-000!5e0!3m2!1spt-BR!2sbr!4v1715000000000!5m2!1spt-BR!2sbr" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-bg py-12 border-t border-brand-border">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <span class="font-serif text-xl tracking-wide text-brand-textMain block mb-1">Beauty Clinic</span>
+                <span class="text-xs uppercase tracking-widest text-brand-textMuted">por Karynna Deyse</span>
+            </div>
+            
+            <div class="flex space-x-6">
+                <a href="https://www.instagram.com/beautyclinicporkarynnadeyse/" target="_blank" class="text-brand-textMuted hover:text-brand-primary transition-colors">
+                    <i data-lucide="instagram" class="w-5 h-5"></i>
                 </a>
             </div>
-
-            <div class="w-full md:w-1/2 reveal" style="transition-delay: 0.2s">
-                <div class="bg-brand-surface p-8 md:p-12 rounded-3xl border border-brand-border/50 flex flex-col h-full">
-                    <h3 class="font-serif text-2xl text-brand-textMain mb-8">Nossa Localização</h3>
-                    
-                    <ul class="flex flex-col gap-5 mb-8">
-                        <li class="flex items-start gap-4">
-                            <i data-lucide="map-pin" class="w-5 h-5 text-brand-primary mt-1 shrink-0"></i>
-                            <div>
-                                <p class="text-brand-textMain font-medium mb-1">Endereço</p>
-                                <p class="text-brand-textMuted text-sm leading-relaxed">
-                                    Av. Agostinho Rubin, 456<br>
-                                    Jardim Germânia<br>
-                                    São Paulo — SP, 05848-000
-                                </p>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <i data-lucide="instagram" class="w-5 h-5 text-brand-primary mt-1 shrink-0"></i>
-                            <div>
-                                <p class="text-brand-textMain font-medium mb-1">Redes Sociais</p>
-                                <a href="https://www.instagram.com/beautyclinicporkarynnadeyse/" target="_blank" class="text-brand-textMuted hover:text-brand-primary transition-colors text-sm">@beautyclinicporkarynnadeyse</a>
-                            </div>
-                        </li>
-                    </ul>
-
-                    <div class="w-full h-48 md:h-64 rounded-2xl overflow-hidden relative shadow-inner border border-brand-border mt-auto">
-                        <iframe 
-                            src="https://maps.google.com/maps?q=Av.%20Agostinho%20Rubin,%20456,%20Jardim%20Germ%C3%A2nia,%20S%C3%A3o%20Paulo&t=&z=15&ie=UTF8&iwloc=&output=embed" 
-                            class="absolute inset-0 w-full h-full border-0" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade"
-                            title="Mapa">
-                        </iframe>
-                    </div>
-                </div>
-            </div>
         </div>
-    </section>
-
-    <footer class="bg-brand-textMain text-white pt-20 pb-10 border-t border-brand-textMain">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12">
-            <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-12 md:gap-0 mb-16">
-                <div class="text-center md:text-left">
-                    <h2 class="font-serif text-2xl md:text-3xl mb-2 text-brand-bg">Beauty Clinic</h2>
-                    <p class="text-brand-bg/60 text-xs tracking-widest uppercase font-sans mb-4">por Karynna Deyse</p>
-                    <p class="text-brand-bg/50 text-sm">Estética • Beleza • Bem-estar</p>
-                </div>
-
-                <div class="flex gap-12 text-center md:text-left">
-                    <div class="flex flex-col gap-4">
-                        <a href="#inicio" class="text-brand-bg/70 hover:text-brand-bg text-sm transition-colors">Início</a>
-                        <a href="#tratamentos" class="text-brand-bg/70 hover:text-brand-bg text-sm transition-colors">Tratamentos</a>
-                        <a href="#experiencia" class="text-brand-bg/70 hover:text-brand-bg text-sm transition-colors">Sobre</a>
-                    </div>
-                    <div class="flex flex-col gap-4">
-                        <a href="#contato" class="text-brand-bg/70 hover:text-brand-bg text-sm transition-colors">Contato</a>
-                        <a href="https://www.instagram.com/beautyclinicporkarynnadeyse/" target="_blank" class="text-brand-bg/70 hover:text-brand-bg text-sm transition-colors">Instagram</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-brand-bg/40">
-                <p>Av. Agostinho Rubin, 456 - Jardim Germânia, SP</p>
-                <p>&copy; <span id="year"></span> Beauty Clinic. Todos os direitos reservados.</p>
-            </div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 mt-8 text-center md:text-left">
+            <p class="text-xs text-brand-textMuted">© 2024 Beauty Clinic por Karynna Deyse. Todos os direitos reservados.</p>
         </div>
     </footer>
 
-    <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-xl hover:scale-110 transition-transform flex items-center justify-center md:bottom-10 md:right-10 group">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    <!-- BOTÃO WHATSAPP FLUTUANTE (Z-index ajustado para ficar sob o menu mobile quando aberto) -->
+    <a href="https://wa.me/5511999999999?text=Olá, gostaria de tirar uma dúvida." target="_blank" class="fixed bottom-6 right-6 z-30 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform duration-300 flex items-center justify-center">
+        <!-- SVG oficial do WhatsApp -->
+        <svg viewBox="0 0 32 32" class="w-7 h-7 fill-current">
+            <path d="M16.05 0c-8.835 0-16 7.165-16 16 0 2.825 0.74 5.565 2.14 8.01l-2.19 8 8.175-2.145c2.375 1.28 5.045 1.955 7.825 1.955 8.835 0 16-7.165 16-16s-7.165-16-16-16zM16.05 29.13c-2.395 0-4.745-0.645-6.8-1.865l-0.49-0.29-5.06 1.33 1.355-4.93-0.315-0.5c-1.34-2.125-2.045-4.57-2.045-7.065 0-7.345 5.98-13.325 13.325-13.325 7.345 0 13.325 5.98 13.325 13.325s-5.98 13.325-13.325 13.325zM23.36 19.165c-0.4-0.2-2.37-1.17-2.74-1.305-0.37-0.135-0.64-0.2-0.905 0.2-0.27 0.4-1.035 1.305-1.27 1.57-0.235 0.27-0.47 0.3-0.87 0.1-0.4-0.2-1.69-0.625-3.225-1.995-1.195-1.065-2.005-2.38-2.24-2.78-0.235-0.4-0.025-0.615 0.175-0.815 0.18-0.18 0.4-0.47 0.6-0.705 0.2-0.235 0.27-0.4 0.4-0.67 0.135-0.27 0.065-0.5-0.035-0.7-0.1-0.2-0.905-2.185-1.24-2.99-0.325-0.78-0.655-0.675-0.905-0.685-0.235-0.01-0.505-0.01-0.77-0.01-0.27 0 0.705 0.1 1.07 0.5 0.37 0.4 1.405 1.37 1.405 3.34s-1.405 3.84-1.605 4.105c-0.2 0.27-2.8 4.275-6.785 5.99-0.945 0.41-1.685 0.655-2.26 0.84-0.95 0.3-1.815 0.255-2.495 0.155-0.76-0.11-2.37-0.97-2.705-1.91-0.335-0.94-0.335-1.745-0.235-1.91 0.1-0.165 0.37-0.265 0.77-0.465z"></path>
         </svg>
     </a>
 
     <script>
+        // Inicializa ícones
         lucide.createIcons();
-        document.getElementById('year').textContent = new Date().getFullYear();
 
-        const header = document.getElementById('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('shadow-sm', 'border-brand-border');
-                header.classList.remove('border-transparent');
-            } else {
-                header.classList.remove('shadow-sm', 'border-brand-border');
-                header.classList.add('border-transparent');
-            }
-        });
-
-        /* LÓGICA DO MENU MOBILE CORRIGIDA */
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const menuIcon = document.getElementById('menuIcon');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-
-        function toggleMenu() {
-            const isHidden = mobileMenu.classList.contains('hidden');
+        // Lógica do Acordeão de Tratamentos
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(`icon-${id}`);
             
-            if (isHidden) {
-                // Abre o menu
-                mobileMenu.classList.remove('hidden');
-                mobileMenu.classList.add('flex');
-                setTimeout(() => {
-                    mobileMenu.classList.remove('opacity-0');
-                    mobileMenu.classList.add('opacity-100');
-                }, 10);
-                
-                menuIcon.setAttribute('data-lucide', 'x');
-                lucide.createIcons();
-                document.body.style.overflow = 'hidden'; // trava o scroll de fundo
+            // Fecha todos os outros primeiro (opcional, manter apenas um aberto)
+            document.querySelectorAll('.accordion-content').forEach(el => {
+                if (el.id !== id && el.classList.contains('is-open')) {
+                    el.classList.remove('is-open');
+                    document.getElementById(`icon-${el.id}`).style.transform = 'rotate(0deg)';
+                }
+            });
+
+            // Abre/fecha o clicado
+            if (content.classList.contains('is-open')) {
+                content.classList.remove('is-open');
+                icon.style.transform = 'rotate(0deg)';
             } else {
-                // Fecha o menu
-                mobileMenu.classList.remove('opacity-100');
-                mobileMenu.classList.add('opacity-0');
-                setTimeout(() => {
-                    mobileMenu.classList.add('hidden');
-                    mobileMenu.classList.remove('flex');
-                }, 300); // aguarda a transição terminar
-                
-                menuIcon.setAttribute('data-lucide', 'menu');
-                lucide.createIcons();
-                document.body.style.overflow = ''; // destrava o scroll
+                content.classList.add('is-open');
+                icon.style.transform = 'rotate(180deg)';
             }
         }
 
-        mobileMenuBtn.addEventListener('click', toggleMenu);
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', toggleMenu);
+        // Lógica do Menu Mobile Corrigida (usando 2 divs em vez de recriar o ícone)
+        const btn = document.getElementById('mobileMenuBtn');
+        const menu = document.getElementById('mobileMenu');
+        const iconMenu = document.getElementById('icon-menu');
+        const iconClose = document.getElementById('icon-close');
+        let isOpen = false;
+
+        function closeMenu() {
+            isOpen = false;
+            menu.classList.remove('opacity-100');
+            menu.classList.add('opacity-0');
+            
+            // Aguarda a transição de opacidade para esconder o elemento
+            setTimeout(() => {
+                menu.classList.add('hidden');
+                menu.classList.remove('flex');
+            }, 300);
+            
+            document.body.style.overflow = '';
+            
+            iconClose.classList.add('hidden');
+            iconMenu.classList.remove('hidden');
+        }
+
+        function openMenu() {
+            isOpen = true;
+            menu.classList.remove('hidden');
+            menu.classList.add('flex');
+            
+            // Pequeno atraso para a transição funcionar
+            setTimeout(() => {
+                menu.classList.remove('opacity-0');
+                menu.classList.add('opacity-100');
+            }, 10);
+            
+            document.body.style.overflow = 'hidden';
+            
+            iconMenu.classList.add('hidden');
+            iconClose.classList.remove('hidden');
+        }
+
+        btn.addEventListener('click', () => {
+            if (isOpen) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
         });
 
-        // Efeito Reveal
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { rootMargin: '0px 0px -100px 0px', threshold: 0.1 });
-        
-        revealElements.forEach(el => revealObserver.observe(el));
-
-        // Acordeão
-        const accordionItems = document.querySelectorAll('.accordion-item');
-        accordionItems.forEach(item => {
-            const header = item.querySelector('.accordion-header');
-            header.addEventListener('click', () => {
-                const isOpen = item.classList.contains('is-open');
-                accordionItems.forEach(other => {
-                    other.classList.remove('is-open');
-                    other.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
-                });
-                if (!isOpen) {
-                    item.classList.add('is-open');
-                    header.setAttribute('aria-expanded', 'true');
-                }
-            });
+        // Fecha o menu ao clicar em qualquer link
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', closeMenu);
         });
     </script>
 </body>
