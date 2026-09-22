@@ -138,7 +138,7 @@
 </head>
 <body class="font-sans selection:bg-brand-primary selection:text-white relative">
 
-    <header id="header" class="fixed w-full top-0 z-50 transition-all duration-300 bg-brand-bg/90 backdrop-blur-md border-b border-transparent">
+    <header id="header" class="fixed w-full top-0 z-[60] transition-all duration-300 bg-brand-bg/95 backdrop-blur-md border-b border-transparent">
         <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between relative z-50">
             <!-- Logo -->
             <a href="#" class="font-serif text-xl md:text-2xl font-medium tracking-wide text-brand-textMain hover:opacity-80 transition-opacity">
@@ -161,40 +161,43 @@
                 </a>
             </div>
 
-            <!-- Mobile Menu Button -->
-            <button id="mobileMenuBtn" class="lg:hidden p-2 -mr-2 text-brand-textMain focus:outline-none" aria-label="Abrir menu">
-                <i data-lucide="menu" id="menuIcon" class="w-7 h-7"></i>
+            <!-- Mobile Menu Button (Refatorado para 2 elementos distintos, evita bug do Lucide) -->
+            <button id="mobileMenuBtn" class="lg:hidden p-2 -mr-2 text-brand-textMain focus:outline-none relative" aria-label="Abrir menu">
+                <div id="icon-menu" class="block"><i data-lucide="menu" class="w-7 h-7"></i></div>
+                <div id="icon-close" class="hidden"><i data-lucide="x" class="w-7 h-7"></i></div>
             </button>
         </div>
     </header>
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobileMenu" class="fixed inset-0 bg-brand-bg z-40 hidden flex-col items-center justify-center pt-16 px-6 opacity-0 transition-opacity duration-300">
-        <nav class="flex flex-col gap-6 text-center w-full">
+    <!-- Mobile Menu Overlay (Z-index 50, overflow-y-auto para evitar cortes no landscape) -->
+    <div id="mobileMenu" class="fixed inset-0 bg-brand-bg z-[50] hidden flex-col pt-24 pb-8 px-6 opacity-0 transition-opacity duration-300 overflow-y-auto">
+        <nav class="flex flex-col gap-6 text-center w-full min-h-full justify-center">
             <a href="#inicio" class="mobile-link block w-full py-2 text-3xl font-serif text-brand-textMain hover:text-brand-primary">Início</a>
             <a href="#tratamentos" class="mobile-link block w-full py-2 text-3xl font-serif text-brand-textMain hover:text-brand-primary">Tratamentos</a>
             <a href="#experiencia" class="mobile-link block w-full py-2 text-3xl font-serif text-brand-textMain hover:text-brand-primary">Experiência</a>
             <a href="#depoimentos" class="mobile-link block w-full py-2 text-3xl font-serif text-brand-textMain hover:text-brand-primary">Depoimentos</a>
             <a href="#contato" class="mobile-link block w-full py-2 text-3xl font-serif text-brand-textMain hover:text-brand-primary">Contato</a>
             
-            <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20agendar%20um%20horário." target="_blank" rel="noopener noreferrer" class="mt-6 w-full py-4 bg-brand-textMain text-white text-center rounded-full text-base font-medium tracking-wide hover:bg-brand-primary transition-colors">
-                Agendar pelo WhatsApp
-            </a>
+            <div class="mt-8">
+                <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20agendar%20um%20horário." target="_blank" rel="noopener noreferrer" class="inline-block w-full sm:w-[80%] py-4 bg-brand-textMain text-white text-center rounded-full text-base font-medium tracking-wide hover:bg-brand-primary transition-colors">
+                    Agendar pelo WhatsApp
+                </a>
+            </div>
         </nav>
     </div>
 
-    <section id="inicio" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+    <section id="inicio" class="relative min-h-[100svh] flex items-center pt-20 overflow-hidden">
         <div class="absolute inset-0 z-0 flex md:block flex-col">
-            <div class="w-full md:w-1/2 h-1/2 md:h-full bg-brand-bg absolute left-0 top-0 z-10 md:bg-transparent"></div>
+            <!-- Fundo para Desktop -->
+            <div class="hidden md:block w-full md:w-1/2 h-full bg-brand-bg absolute left-0 top-0 z-10 md:bg-transparent"></div>
             
-            <div class="w-full md:w-[55%] h-full absolute right-0 top-0">
-                <div class="absolute inset-0 bg-brand-surface"></div>
+            <!-- Imagem e Gradiente (Ajustado para preencher todo o fundo no Mobile com gradiente escuro) -->
+            <div class="w-full md:w-[60%] h-full absolute right-0 top-0">
                 <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=2070&auto=format&fit=crop" 
                      alt="Ambiente de spa" 
                      class="w-full h-full object-cover object-center animate-slow-pan editorial-image opacity-90"
                      loading="lazy">
-                <!-- Gradiente para proteger o texto no mobile -->
-                <div class="absolute inset-0 bg-gradient-to-t from-brand-bg via-brand-bg/90 to-brand-bg/30 md:bg-gradient-to-l md:from-transparent md:via-brand-bg/80 md:to-brand-bg"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-bg via-brand-bg/95 to-brand-bg/40 md:bg-gradient-to-l md:from-transparent md:via-brand-bg/80 md:to-brand-bg"></div>
             </div>
         </div>
 
@@ -254,11 +257,12 @@
                 <!-- Categoria 1: Cabelos -->
                 <div class="accordion-item border-b border-brand-border reveal is-open">
                     <button class="accordion-header w-full flex items-center justify-between py-6 md:py-8 text-left focus:outline-none group" aria-expanded="true">
-                        <div class="flex items-center gap-4 md:gap-6">
+                        <div class="flex items-center gap-4 md:gap-6 min-w-0">
+                            <!-- shrink-0 garante que os ícones nunca sejam esmagados em telas de 320px -->
                             <i data-lucide="scissors" class="w-6 h-6 md:w-8 md:h-8 shrink-0 text-brand-primary stroke-[1.5]"></i>
-                            <h3 class="font-serif text-xl sm:text-2xl md:text-3xl text-brand-textMain group-hover:text-brand-primary transition-colors">Cabelos & Spa</h3>
+                            <h3 class="font-serif text-xl sm:text-2xl md:text-3xl text-brand-textMain group-hover:text-brand-primary transition-colors break-words">Cabelos & Spa</h3>
                         </div>
-                        <i data-lucide="chevron-down" class="w-5 h-5 shrink-0 text-brand-textMuted transition-transform duration-300 accordion-icon"></i>
+                        <i data-lucide="chevron-down" class="w-5 h-5 shrink-0 text-brand-textMuted transition-transform duration-300 accordion-icon ml-4"></i>
                     </button>
                     <div class="accordion-content-wrapper">
                         <div class="accordion-content">
@@ -317,11 +321,11 @@
                 <!-- Categoria 2: Facial -->
                 <div class="accordion-item border-b border-brand-border reveal">
                     <button class="accordion-header w-full flex items-center justify-between py-6 md:py-8 text-left focus:outline-none group" aria-expanded="false">
-                        <div class="flex items-center gap-4 md:gap-6">
+                        <div class="flex items-center gap-4 md:gap-6 min-w-0">
                             <i data-lucide="sparkles" class="w-6 h-6 md:w-8 md:h-8 shrink-0 text-brand-primary stroke-[1.5]"></i>
-                            <h3 class="font-serif text-xl sm:text-2xl md:text-3xl text-brand-textMain group-hover:text-brand-primary transition-colors">Estética Facial</h3>
+                            <h3 class="font-serif text-xl sm:text-2xl md:text-3xl text-brand-textMain group-hover:text-brand-primary transition-colors break-words">Estética Facial</h3>
                         </div>
-                        <i data-lucide="chevron-down" class="w-5 h-5 shrink-0 text-brand-textMuted transition-transform duration-300 accordion-icon"></i>
+                        <i data-lucide="chevron-down" class="w-5 h-5 shrink-0 text-brand-textMuted transition-transform duration-300 accordion-icon ml-4"></i>
                     </button>
                     <div class="accordion-content-wrapper">
                         <div class="accordion-content">
@@ -380,11 +384,11 @@
                 <!-- Categoria 3: Corporal -->
                 <div class="accordion-item border-b border-brand-border reveal">
                     <button class="accordion-header w-full flex items-center justify-between py-6 md:py-8 text-left focus:outline-none group" aria-expanded="false">
-                        <div class="flex items-center gap-4 md:gap-6">
+                        <div class="flex items-center gap-4 md:gap-6 min-w-0">
                             <i data-lucide="feather" class="w-6 h-6 md:w-8 md:h-8 shrink-0 text-brand-primary stroke-[1.5]"></i>
-                            <h3 class="font-serif text-xl sm:text-2xl md:text-3xl text-brand-textMain group-hover:text-brand-primary transition-colors">Estética Corporal</h3>
+                            <h3 class="font-serif text-xl sm:text-2xl md:text-3xl text-brand-textMain group-hover:text-brand-primary transition-colors break-words">Estética Corporal</h3>
                         </div>
-                        <i data-lucide="chevron-down" class="w-5 h-5 shrink-0 text-brand-textMuted transition-transform duration-300 accordion-icon"></i>
+                        <i data-lucide="chevron-down" class="w-5 h-5 shrink-0 text-brand-textMuted transition-transform duration-300 accordion-icon ml-4"></i>
                     </button>
                     <div class="accordion-content-wrapper">
                         <div class="accordion-content">
@@ -443,11 +447,11 @@
                 <!-- Categoria 4: Wellness -->
                 <div class="accordion-item border-b border-brand-border reveal">
                     <button class="accordion-header w-full flex items-center justify-between py-6 md:py-8 text-left focus:outline-none group" aria-expanded="false">
-                        <div class="flex items-center gap-4 md:gap-6">
+                        <div class="flex items-center gap-4 md:gap-6 min-w-0">
                             <i data-lucide="flower-2" class="w-6 h-6 md:w-8 md:h-8 shrink-0 text-brand-primary stroke-[1.5]"></i>
-                            <h3 class="font-serif text-xl sm:text-2xl md:text-3xl text-brand-textMain group-hover:text-brand-primary transition-colors">Bem-Estar</h3>
+                            <h3 class="font-serif text-xl sm:text-2xl md:text-3xl text-brand-textMain group-hover:text-brand-primary transition-colors break-words">Bem-Estar</h3>
                         </div>
-                        <i data-lucide="chevron-down" class="w-5 h-5 shrink-0 text-brand-textMuted transition-transform duration-300 accordion-icon"></i>
+                        <i data-lucide="chevron-down" class="w-5 h-5 shrink-0 text-brand-textMuted transition-transform duration-300 accordion-icon ml-4"></i>
                     </button>
                     <div class="accordion-content-wrapper">
                         <div class="accordion-content">
@@ -587,6 +591,7 @@
         </div>
     </section>
 
+    <!-- Depoimentos (ASPAS COMO MARCA D'ÁGUA ANTI-QUEBRA) -->
     <section id="depoimentos" class="py-24 md:py-32 bg-brand-bg relative">
         <div class="max-w-5xl mx-auto px-6 lg:px-12 text-center reveal">
             <span class="text-xs font-semibold tracking-widest text-brand-primary uppercase mb-4 block">Avaliações</span>
@@ -604,20 +609,29 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-border text-left relative">
-                    <i data-lucide="quote" class="absolute top-8 right-8 w-8 h-8 text-brand-surface stroke-[1] fill-brand-surface"></i>
-                    <p class="text-brand-textMuted text-sm leading-relaxed mb-6 italic">"Um ótimo atendimento, profissionais capacitadas, um ambiente muito agradável."</p>
-                    <p class="text-brand-textMain font-medium text-sm">— Cliente Beauty Clinic</p>
+                <!-- A aspa agora fica atrás (z-0) e imensa, impossível dar overflow no texto (z-10) -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-border text-left relative overflow-hidden h-full flex flex-col justify-between">
+                    <i data-lucide="quote" class="absolute top-4 right-4 w-24 h-24 text-brand-primary opacity-5 z-0 rotate-12 pointer-events-none"></i>
+                    <div class="relative z-10">
+                        <p class="text-brand-textMuted text-sm leading-relaxed mb-6 italic">"Um ótimo atendimento, profissionais capacitadas, um ambiente muito agradável. Recomendo de olhos fechados."</p>
+                    </div>
+                    <p class="text-brand-textMain font-medium text-sm relative z-10">— Cliente Beauty Clinic</p>
                 </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-border text-left relative md:-translate-y-4">
-                    <i data-lucide="quote" class="absolute top-8 right-8 w-8 h-8 text-brand-surface stroke-[1] fill-brand-surface"></i>
-                    <p class="text-brand-textMuted text-sm leading-relaxed mb-6 italic">"Ambiente maravilhoso, a Kah é uma profissional de muita luz. Super recomendo a experiência."</p>
-                    <p class="text-brand-textMain font-medium text-sm">— Cliente Beauty Clinic</p>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-border text-left relative overflow-hidden h-full flex flex-col justify-between md:-translate-y-4">
+                    <i data-lucide="quote" class="absolute top-4 right-4 w-24 h-24 text-brand-primary opacity-5 z-0 rotate-12 pointer-events-none"></i>
+                    <div class="relative z-10">
+                        <p class="text-brand-textMuted text-sm leading-relaxed mb-6 italic">"Ambiente maravilhoso, a Kah é uma profissional de muita luz. Super recomendo a experiência, mudou meu dia."</p>
+                    </div>
+                    <p class="text-brand-textMain font-medium text-sm relative z-10">— Cliente Beauty Clinic</p>
                 </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-border text-left relative">
-                    <i data-lucide="quote" class="absolute top-8 right-8 w-8 h-8 text-brand-surface stroke-[1] fill-brand-surface"></i>
-                    <p class="text-brand-textMuted text-sm leading-relaxed mb-6 italic">"Local aconchegante, outro nível… amei demais, os tratamentos são excelentes."</p>
-                    <p class="text-brand-textMain font-medium text-sm">— Cliente Beauty Clinic</p>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-border text-left relative overflow-hidden h-full flex flex-col justify-between">
+                    <i data-lucide="quote" class="absolute top-4 right-4 w-24 h-24 text-brand-primary opacity-5 z-0 rotate-12 pointer-events-none"></i>
+                    <div class="relative z-10">
+                        <p class="text-brand-textMuted text-sm leading-relaxed mb-6 italic">"Local aconchegante, outro nível… amei demais, os tratamentos são excelentes e o cuidado é perceptível em cada detalhe."</p>
+                    </div>
+                    <p class="text-brand-textMain font-medium text-sm relative z-10">— Cliente Beauty Clinic</p>
                 </div>
             </div>
         </div>
@@ -693,7 +707,8 @@
                         </li>
                     </ul>
 
-                    <div class="w-full h-64 md:h-80 rounded-2xl overflow-hidden relative shadow-inner border border-brand-border mt-auto">
+                    <!-- Altura do mapa aumentada para evitar que o usuário em mobile fique "preso" -->
+                    <div class="w-full min-h-[300px] md:h-80 rounded-2xl overflow-hidden relative shadow-inner border border-brand-border mt-auto">
                         <iframe 
                             src="https://maps.google.com/maps?q=Av.%20Agostinho%20Rubin,%20456,%20Jardim%20Germ%C3%A2nia,%20S%C3%A3o%20Paulo&t=&z=15&ie=UTF8&iwloc=&output=embed" 
                             class="absolute inset-0 w-full h-full border-0" 
@@ -737,6 +752,7 @@
         </div>
     </footer>
 
+    <!-- Z-index corrigido para 30 -->
     <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-30 bg-[#25D366] text-white p-4 rounded-full shadow-xl hover:scale-110 transition-transform flex items-center justify-center md:bottom-10 md:right-10 group">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
@@ -758,39 +774,45 @@
             }
         });
 
-        /* LÓGICA DO MENU MOBILE CORRIGIDA */
+        /* LÓGICA DO MENU MOBILE REFATORADA E BLINDADA */
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const menuIcon = document.getElementById('menuIcon');
+        const iconMenu = document.getElementById('icon-menu');
+        const iconClose = document.getElementById('icon-close');
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
+        let menuTimeout;
 
         function toggleMenu() {
+            clearTimeout(menuTimeout); // Evita falha de estado em cliques rápidos
             const isHidden = mobileMenu.classList.contains('hidden');
             
             if (isHidden) {
                 // Abre o menu
                 mobileMenu.classList.remove('hidden');
                 mobileMenu.classList.add('flex');
-                setTimeout(() => {
-                    mobileMenu.classList.remove('opacity-0');
-                    mobileMenu.classList.add('opacity-100');
-                }, 10);
                 
-                menuIcon.setAttribute('data-lucide', 'x');
-                lucide.createIcons();
-                document.body.style.overflow = 'hidden'; // trava o scroll de fundo
+                // Força o navegador a renderizar o "flex" antes de animar a opacidade
+                mobileMenu.offsetHeight; 
+                
+                mobileMenu.classList.remove('opacity-0');
+                mobileMenu.classList.add('opacity-100');
+                
+                iconMenu.classList.add('hidden');
+                iconClose.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; 
             } else {
                 // Fecha o menu
                 mobileMenu.classList.remove('opacity-100');
                 mobileMenu.classList.add('opacity-0');
-                setTimeout(() => {
+                
+                iconClose.classList.add('hidden');
+                iconMenu.classList.remove('hidden');
+                document.body.style.overflow = ''; 
+
+                menuTimeout = setTimeout(() => {
                     mobileMenu.classList.add('hidden');
                     mobileMenu.classList.remove('flex');
-                }, 300); // aguarda a transição terminar
-                
-                menuIcon.setAttribute('data-lucide', 'menu');
-                lucide.createIcons();
-                document.body.style.overflow = ''; // destrava o scroll
+                }, 300);
             }
         }
 
